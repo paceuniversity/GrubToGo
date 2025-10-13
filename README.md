@@ -10,6 +10,7 @@ TOADD picture of the team
 
 ## App description
 
+
 ## Idea Proposal
 [Idea Proposal](https://docs.google.com/document/d/14UROxg6pcEz7T67yf1DVfY9HnGax6gdY/edit?usp=sharing&ouid=102180535557086645261&rtpof=true&sd=true)
 
