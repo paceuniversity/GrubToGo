@@ -1,8 +1,10 @@
 # TEAM 3
 
-## App name - GrubToGo
+## App name
+GrubToGo
 
-## Team members - Chinmay Chandra, Karan Nahar, Pratik Shah, Sandeep Kumar
+## Team members
+Chinmay Chandra, Karan Nahar, Pratik Shah, Sandeep Kumar
 
 TOADD picture of the team
 
