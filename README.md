@@ -7,7 +7,7 @@ GrubToGo
 Chinmay Chandra, Karan Nahar, Pratik Shah, Sandeep Kumar
 
 ## Team Photo
-![Chinmay Chandra](https://raw.githubusercontent.com/paceuniversity/cs491fall2025team3/main/Profile%20Photos/Chinmay_Chandra.jpeg)
+![Chinmay Chandra]((https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Chinmay_Chandra.jpeg))
 
 ## App description
 
