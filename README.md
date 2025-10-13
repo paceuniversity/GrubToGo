@@ -5,8 +5,9 @@ GrubToGo
 
 ## Team members
 Chinmay Chandra, Karan Nahar, Pratik Shah, Sandeep Kumar
-(https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Chinmay_Chandra.jpeg)
-TOADD picture of the team
+
+## Team Photo
+![Chinmay Chandra](https://raw.githubusercontent.com/paceuniversity/cs491fall2025team3/main/Profile%20Photos/Chinmay_Chandra.jpeg)
 
 ## App description
 
