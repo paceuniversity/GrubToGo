@@ -8,6 +8,9 @@ Chinmay Chandra, Karan Nahar, Pratik Shah, Sandeep Kumar
 
 ## Team Photo
 ![Chinmay Chandra](https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Chinmay_Chandra.jpeg)
+![Karan Nahar](https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Karan_Nahar.jpeg)
+![Pratik Shah](https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Pratik_Shah.jpeg)
+![Sandeep Kumar](https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Sandeep_Kumar.jpeg)
 
 ## App description
 
