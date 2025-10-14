@@ -9,12 +9,12 @@ Chinmay Chandra, Karan Nahar, Pratik Shah, Sandeep Kumar
 ## Team Photo
 
 <p align="center">
-  <img src="https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Chinmay_Chandra.jpeg" width="200" />
-  <img src="https://raw.githubusercontent.com/paceuniversity/cs491fall2025team3/main/Profile%20Photos/Karan_Nahar.jpeg" width="200" />
+  <img src="https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Chinmay_Chandra.jpeg" width="200">
+  <img src="https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Karan_Nahar.jpeg" width="200">
 </p>
 <p align="center">
-  <img src="https://raw.githubusercontent.com/paceuniversity/cs491fall2025team3/main/Profile%20Photos/Pratik_Shah.jpeg" width="200" />
-  <img src="https://raw.githubusercontent.com/paceuniversity/cs491fall2025team3/main/Profile%20Photos/Sandeep_Kumar.jpeg" width="200" />
+  <img src="https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Pratik_Shah.jpeg" width="200">
+  <img src="https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Sandeep_Kumar.jpeg" width="200">
 </p>
 
 ## App description
