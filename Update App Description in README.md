@@ -17,8 +17,9 @@ Chinmay Chandra, Pratik Shah, Karan Nahar, Sandeep Kumar
   <img src="https://github.com/paceuniversity/cs491fall2025team3/blob/main/Profile%20Photos/Sandeep_Kumar.jpeg" width="200">
 </p>
 
-## App description
-
+## App Description
+Grab discounted campus meals fast , save food, save cash.  
+Dining staff list leftover meals with photos and pickup times. Students browse, pay, and pick up meals using a QR code.  
 
 ## Idea Proposal
 [Idea Proposal](https://docs.google.com/document/d/14UROxg6pcEz7T67yf1DVfY9HnGax6gdY/edit?usp=sharing&ouid=102180535557086645261&rtpof=true&sd=true)
