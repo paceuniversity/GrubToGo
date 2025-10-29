@@ -44,6 +44,10 @@ Dining staff list leftover meals with photos and pickup times. Students browse, 
 * [Sprint demo video]()
 * [Sprint retrospective]()
 
+####  Sprint 1 Goal
+Our Sprint Goal is to create and test the student login page so users can sign in securely to GrubToGo.
+
+ 
 ### Sprint 2
 
 * [Sprint planning]()
