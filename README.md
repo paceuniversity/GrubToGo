@@ -45,7 +45,24 @@ Dining staff list leftover meals with photos and pickup times. Students browse, 
 * [Sprint retrospective]()
 
 ####  Sprint 1 Goal
-Our Sprint Goal is to create and test the student login page so users can sign in securely to GrubToGo.
+Our Sprint Goal is to design and implement the student login and store browsing features for GrubToGo, ensuring users can securely log in and view available stores and meal listings.
+
+####  User Stories for Sprint 1
+* **US1 – Student Login (7 points, High):**  
+  As a student, I want to make an account with my Pace email so I can sign in safely.
+
+* **US2 – View Stores (7 points, High):**  
+  As a student, I want to see a list of stores which provide leftover meals.
+
+* **US3 – View Meals (7 points, High):**  
+  As a student, I want to see what food is offered by the stores at a discounted rate.
+
+####  Velocity
+* Total planned velocity: **21 points**
+  * US1 – 7 points  
+  * US2 – 7 points  
+  * US3 – 7 points
+
 
  
 ### Sprint 2
