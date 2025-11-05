@@ -4,7 +4,7 @@
 GrubToGo
 
 ## Team members
-Chinmay Chandra, Pratik Shah, Karan Nahar, Sandeep Kumar
+Chinmay Chandra, Pratik Shah, Karan Nahar, Sandeep Kuma
 
 ## Team Photo
 
