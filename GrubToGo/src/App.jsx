@@ -1,38 +1,44 @@
-import React, { useState } from 'react';
-import Navbar from './components/Navbar/Navbar'
-import { Route, Routes } from 'react-router-dom'
-import Home from './pages/Home/Home'
-import Menu from './pages/Menu/Menu'
-import Cart from './pages/Cart/Cart'
-import PlaceOrder from './pages/PlaceOrder/PlaceOrder'
-import LoginPopup from './components/LoginPopup/LoginPopup'
+import React from 'react';
+import { Route, Routes, Navigate } from 'react-router-dom';
+import Navbar from './components/Navbar/Navbar';
+import Home from './pages/Home/Home';
+import Menu from './pages/Menu/Menu';
+import Cart from './pages/Cart/Cart';
+import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
+import Login from './pages/Login/Login';
+import Register from './pages/Register/Register';
 
 const App = () => {
-
-  const [showLogin,setShowLogin] = useState(false)
-
+  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
 
   return (
+    <div className="app">
+      {isLoggedIn && <Navbar />} {/* Navbar visible only after login */}
 
-    <>
-
-    {showLogin?<LoginPopup setShowLogin={setShowLogin}/>:<></>}
-
-  
-    <div className='app'>
-
-      <Navbar setShowLogin={setShowLogin}/>
       <Routes>
-        < Route path='/' element={<Home/>}/>
-        < Route path='/menu' element={<Menu/>}/>
-        < Route path='/cart' element={<Cart/>}/>
-        < Route path='/order' element={<PlaceOrder/>}/>
-         </Routes>
-      
-    </div> 
-    </>
-    
-  )
-}
+        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/register" element={<Register setIsLoggedIn={setIsLoggedIn} />} />
 
-export default App
+        {/* Protected routes */}
+        <Route
+          path="/"
+          element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu"
+          element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/cart"
+          element={isLoggedIn ? <Cart /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/order"
+          element={isLoggedIn ? <PlaceOrder /> : <Navigate to="/login" />}
+        />
+      </Routes>
+    </div>
+  );
+};
+
+export default App;
