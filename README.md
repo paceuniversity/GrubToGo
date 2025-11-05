@@ -4,7 +4,6 @@
 GrubToGo
 
 ## Team members
-
 Chinmay Chandra, Pratik Shah, Karan Nahar, Sandeep Kumar
 
 ## Team Photo
@@ -37,14 +36,14 @@ Dining staff list leftover meals with photos and pickup times. Students browse, 
 [Architecture & Design]()
 
 ## Process
-Agile
 
 ### Sprint 1
 
 * [Sprint planning](https://docs.google.com/spreadsheets/d/1ippBgPRMhqo_UdZmyy8bxRogwDEbddCK/edit?gid=276754774#gid=276754774)
 * [Scrums](https://docs.google.com/document/d/1vUxR2_czdF6swkvL9h0me3PDxLuU4ACZbEiL7pgIfkY/edit?tab=t.0)
-* [Sprint demo video]()
+* [Sprint demo video ](https://drive.google.com/file/d/1Bb8PvZ7chF96PWf1zuTSbCxO0NAHpKAb/view?usp=sharing)
 * [Sprint retrospective]()
+
 
 ### Sprint 2
 
@@ -61,9 +60,6 @@ Agile
 * [Sprint retrospective]()
 
 ## Tools & APIs
-React
-Bootstrap
-Firebase
 
 ## Final delivery
 
