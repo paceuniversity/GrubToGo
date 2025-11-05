@@ -36,7 +36,7 @@ Dining staff list leftover meals with photos and pickup times. Students browse, 
 [Architecture & Design]()
 
 ## Process
-Scrum
+Agile
 
 ### Sprint 1
 
