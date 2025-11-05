@@ -36,7 +36,6 @@ Dining staff list leftover meals with photos and pickup times. Students browse, 
 [Architecture & Design]()
 
 ## Process
-TBD
 
 ### Sprint 1
 
@@ -60,6 +59,8 @@ TBD
 * [Sprint retrospective]()
 
 ## Tools & APIs
+React
+Firebase
 
 ## Final delivery
 
