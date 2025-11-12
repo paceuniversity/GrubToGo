@@ -1,0 +1,16 @@
+.register-page {
+  background: linear-gradient(135deg, #f8f9fa, #dee2e6);
+}
+
+.card {
+  border-radius: 12px;
+}
+
+.btn-primary {
+  background-color: #4f46e5;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #4338ca;
+}
