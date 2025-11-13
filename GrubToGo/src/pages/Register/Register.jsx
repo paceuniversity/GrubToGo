@@ -31,7 +31,7 @@ const Register = ({ setIsLoggedIn }) => {
       return;
     }
 
-    // Student must not use caterer format
+    // Student should not use caterer format
     if (role === 'student' && emailLower.includes('.caterer@pace.edu')) {
       setError('Students cannot use ".caterer@pace.edu" email format.');
       return;
