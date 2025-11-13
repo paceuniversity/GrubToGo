@@ -19,3 +19,6 @@ If you are developing a production application, we recommend using TypeScript wi
 - Users can choose between **Student** and **Caterer** using a toggle.
 - Student email must be a valid `@pace.edu` address.
 - Caterer email must end with `.staff@pace.edu`.
+- After successful registration:
+  - Students are redirected to the student page.
+  - Caterers are redirected to the caterer page.
