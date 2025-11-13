@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar/Navbar';
 import Home from './pages/Home/Home';
@@ -9,21 +9,26 @@ import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 
 const App = () => {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   return (
     <div className="app">
-      {isLoggedIn && <Navbar />} {/* Navbar visible only after login */}
+      {isLoggedIn && (
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+      )}
 
       <Routes>
-        <Route path="/login" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
-        <Route path="/register" element={<Register setIsLoggedIn={setIsLoggedIn} />} />
+        <Route path="/" element={<Navigate to="/login" />} />
 
-        {/* Protected routes */}
         <Route
-          path="/"
-          element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
         />
+        <Route
+          path="/register"
+          element={<Register setIsLoggedIn={setIsLoggedIn} />}
+        />
+
         <Route
           path="/menu"
           element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
@@ -35,6 +40,15 @@ const App = () => {
         <Route
           path="/order"
           element={isLoggedIn ? <PlaceOrder /> : <Navigate to="/login" />}
+        />
+
+        <Route
+          path="/student"
+          element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/staff"
+          element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
         />
       </Routes>
     </div>

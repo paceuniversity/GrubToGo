@@ -15,7 +15,6 @@ const Login = ({ setIsLoggedIn }) => {
     e.preventDefault();
     setError('');
 
-    // ✅ Ensure email ends with @pace.edu
     if (!email.toLowerCase().endsWith('@pace.edu')) {
       setError('Only Pace University email addresses are allowed.');
       return;
@@ -85,7 +84,7 @@ const Login = ({ setIsLoggedIn }) => {
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              navigate('/register'); // ✅ go to the register page
+              navigate('/register'); 
             }}
           >
             Register
