@@ -27,20 +27,29 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
       <ul className="navbar-menu">
         <li>
           <NavLink
-            to="/"
-            className={menu === 'home' ? 'active' : ''}
-            onClick={() => setMenu('home')}
+            to="/menu"
+            className={menu === 'menu' ? 'active' : ''}
+            onClick={() => setMenu('menu')}
           >
             Home
           </NavLink>
         </li>
         <li>
           <NavLink
-            to="/menu"
-            className={menu === 'menu' ? 'active' : ''}
-            onClick={() => setMenu('menu')}
+            to="/deals"
+            className={menu === 'deals' ? 'active' : ''}
+            onClick={() => setMenu('deals')}
           >
-            Menu
+            Deals
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/my-orders"
+            className={menu === 'my-orders' ? 'active' : ''}
+            onClick={() => setMenu('my-orders')}
+          >
+            My Orders
           </NavLink>
         </li>
         <li>
