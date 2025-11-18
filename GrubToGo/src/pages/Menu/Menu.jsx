@@ -17,7 +17,6 @@ const Menu = () => {
               </div>
               <p className="store-meta">{s.cuisine} • {s.priceRange} • {s.etaMins} min</p>
               <p className="store-desc">{s.description}</p>
-              {/* Placeholder action; can link to a detail or order page later */}
               <a className="store-action" href="#">View menu →</a>
             </div>
           </div>

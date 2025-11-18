@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -5,7 +6,7 @@ import { auth } from '../../firebase';
 import './Register.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Register = ({ setIsLoggedIn }) => {
+const Register = ({ setIsLoggedIn, setUserRole }) => {
   const [role, setRole] = useState('student');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -47,11 +48,12 @@ const Register = ({ setIsLoggedIn }) => {
       .then(() => {
         setIsLoggedIn(true);
 
-        // Redirect based on role
         if (role === 'student') {
-          navigate('/student');
+          if (setUserRole) setUserRole('student');
+          navigate('/student');  
         } else {
-          navigate('/caterer');
+          if (setUserRole) setUserRole('caterer');
+          navigate('/staff');    //  caterer dashboard
         }
       })
       .catch((err) => {
@@ -73,8 +75,7 @@ const Register = ({ setIsLoggedIn }) => {
         {error && <div className="alert alert-danger py-2">{error}</div>}
 
         <form onSubmit={handleSubmit}>
-
-          {/* Role FIRST */}
+          {/* Role */}
           <div className="mb-3">
             <label className="form-label">Are you a:</label>
             <div className="d-flex justify-content-between">
@@ -102,7 +103,11 @@ const Register = ({ setIsLoggedIn }) => {
             <input
               type="email"
               className="form-control"
-              placeholder="name@pace.edu or name.caterer@pace.edu"
+              placeholder={
+                role === 'caterer'
+                  ? 'username.caterer@pace.edu'
+                  : 'username@pace.edu'
+              }
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
@@ -140,7 +145,7 @@ const Register = ({ setIsLoggedIn }) => {
           </button>
         </form>
 
-        <p className="text-center mt-3 mb-0 text-muted">
+        <p className="text-center mt-3 mb-0">
           Already have an account?{' '}
           <a
             href="#"
@@ -158,3 +163,12 @@ const Register = ({ setIsLoggedIn }) => {
 };
 
 export default Register;
+
+
+
+
+
+
+
+
+
