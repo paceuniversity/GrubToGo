@@ -7,28 +7,47 @@ import Cart from './pages/Cart/Cart';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import CatererDashboard from './pages/CatererDashboard/CatererDashboard';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null); // 'student' or 'caterer'
 
   return (
     <div className="app">
       {isLoggedIn && (
-        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+        <Navbar
+          isLoggedIn={isLoggedIn}
+          setIsLoggedIn={setIsLoggedIn}
+          userRole={userRole}
+        />
       )}
 
       <Routes>
+        {/* default route */}
         <Route path="/" element={<Navigate to="/login" />} />
 
+        {/* auth */}
         <Route
           path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+          element={
+            <Login
+              setIsLoggedIn={setIsLoggedIn}
+              setUserRole={setUserRole}
+            />
+          }
         />
         <Route
           path="/register"
-          element={<Register setIsLoggedIn={setIsLoggedIn} />}
+          element={
+            <Register
+              setIsLoggedIn={setIsLoggedIn}
+              setUserRole={setUserRole}
+            />
+          }
         />
 
+        
         <Route
           path="/home"
           element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
@@ -46,13 +65,31 @@ const App = () => {
           element={isLoggedIn ? <PlaceOrder /> : <Navigate to="/login" />}
         />
 
+        
         <Route
           path="/student"
           element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
         />
+
+      
+        {/* Caterer Home  */}
         <Route
           path="/staff"
-          element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
+          element={
+            isLoggedIn && userRole === 'caterer'
+              ? <CatererDashboard />
+              : <Navigate to="/login" />
+          }
+        />
+
+        {/* Caterer Order Details */}
+        <Route
+          path="/staff/orders"
+          element={
+            isLoggedIn && userRole === 'caterer'
+              ? <CatererDashboard />
+              : <Navigate to="/login" />
+          }
         />
       </Routes>
     </div>
@@ -60,3 +97,12 @@ const App = () => {
 };
 
 export default App;
+
+
+
+
+
+
+
+
+
