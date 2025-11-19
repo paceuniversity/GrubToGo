@@ -22,9 +22,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
   return (
     <div className="navbar">
       {/* Logo */}
-      <Link to="/">
-        <img src={assets.logo} alt="GrubToGo" className="logo" />
-      </Link>
+      <img src={assets.logo} alt="GrubToGo" className="logo" />
 
       {/* Center menu */}
       <ul className="navbar-menu">

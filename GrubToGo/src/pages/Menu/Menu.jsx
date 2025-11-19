@@ -1,8 +1,17 @@
 import React from 'react'
 import './Menu.css'
 import { stores } from '../../assets/stores'
+import { Link } from 'react-router-dom';
 
 const Menu = () => {
+  // Map store names to their menu page routes
+  const menuRoutes = {
+    'Pasta Palace': '/menu/pasta-palace',
+    'Sizzling Wok': '/menu/sizzling-wok',
+    'Burger Barn': '/menu/burger-barn',
+    'Curry Corner': '/menu/curry-corner',
+    'Green Bowl': '/menu/green-bowl',
+  };
   return (
     <div className="menu-page">
       <h1 className="menu-title">Browse Stores</h1>
@@ -13,11 +22,10 @@ const Menu = () => {
             <div className="store-body">
               <div className="store-header">
                 <h3 className="store-name">{s.name}</h3>
-                <span className="store-rating">★ {s.rating.toFixed(1)}</span>
               </div>
               <p className="store-meta">{s.cuisine} • {s.priceRange} • {s.etaMins} min</p>
               <p className="store-desc">{s.description}</p>
-              <a className="store-action" href="#">View menu →</a>
+              <Link className="store-action" to={menuRoutes[s.name] || '#'}>View menu →</Link>
             </div>
           </div>
         ))}

@@ -8,6 +8,11 @@ import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import CatererDashboard from './pages/CatererDashboard/CatererDashboard';
+import PastaPalaceMenu from './pages/PastaPalaceMenu';
+import SizzlingWokMenu from './pages/SizzlingWokMenu';
+import BurgerBarnMenu from './pages/BurgerBarnMenu';
+import CurryCornerMenu from './pages/CurryCornerMenu';
+import GreenBowlMenu from './pages/GreenBowlMenu';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -55,6 +60,26 @@ const App = () => {
         <Route
           path="/menu"
           element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu/pasta-palace"
+          element={isLoggedIn ? <PastaPalaceMenu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu/sizzling-wok"
+          element={isLoggedIn ? <SizzlingWokMenu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu/burger-barn"
+          element={isLoggedIn ? <BurgerBarnMenu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu/curry-corner"
+          element={isLoggedIn ? <CurryCornerMenu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu/green-bowl"
+          element={isLoggedIn ? <GreenBowlMenu /> : <Navigate to="/login" />}
         />
         <Route
           path="/cart"
