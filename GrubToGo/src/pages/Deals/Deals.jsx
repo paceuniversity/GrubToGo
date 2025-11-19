@@ -34,9 +34,7 @@ const Deals = () => {
           const { expired, text } = useCountdown(d.expiry);
           return (
             <div key={d.id} className={`deal-card ${expired ? 'deal-expired' : ''}`}>              
-              {d.discountPercent && (
-                <div className="deal-badge">-{d.discountPercent}%</div>
-              )}
+              {/* Discount percentage removed */}
               <img src={d.storeImage} alt={d.storeName} className="deal-image" />
               <div className="deal-body">
                 <span className="deal-store">{d.storeName}</span>
