@@ -3,7 +3,6 @@ import './Deals.css';
 import { enrichDeals } from '../../assets/deals';
 import { useCart } from '../../context/CartContext';
 
-// Simple countdown hook
 function useCountdown(expiryIso) {
   const [remaining, setRemaining] = useState(() => new Date(expiryIso) - Date.now());
   useEffect(() => {
