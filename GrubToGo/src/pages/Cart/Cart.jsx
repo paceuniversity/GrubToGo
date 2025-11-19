@@ -14,6 +14,7 @@ const Cart = () => {
     );
   }
 
+  
   return (
     <div className="cart-page">
       <h1>My Cart</h1>
