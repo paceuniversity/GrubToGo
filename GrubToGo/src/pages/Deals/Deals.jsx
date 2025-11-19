@@ -21,7 +21,6 @@ function useCountdown(expiryIso) {
 }
 
 const Deals = () => {
-  // In future this can come from Firestore or API
   const [dealItems, setDealItems] = useState(() => enrichDeals());
   const { addItem } = useCart();
 
