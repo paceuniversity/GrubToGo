@@ -5,6 +5,7 @@ import { useCart } from '../../context/CartContext';
 const Cart = () => {
   const { items } = useCart();
 
+  
   if (!items.length) {
     return (
       <div className="cart-page">
