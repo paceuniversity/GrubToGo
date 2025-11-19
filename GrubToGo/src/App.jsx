@@ -18,6 +18,7 @@ import GreenBowlMenu from './pages/GreenBowlMenu';
 import CartFab from './components/CartFab';
 
 const App = () => {
+    // State to track if user is logged in and what role (student or caterer)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null); // 'student' or 'caterer'
 
@@ -26,6 +27,7 @@ const App = () => {
       <div className="app">
         {isLoggedIn && (
           <>
+              {/* Show navbar and floating cart button only after login */}
             <Navbar
               isLoggedIn={isLoggedIn}
               setIsLoggedIn={setIsLoggedIn}
