@@ -5,7 +5,7 @@ import { auth } from '../../firebase';
 import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Login = ({ setIsLoggedIn }) => {
+const Login = ({ setIsLoggedIn, setUserRole }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -15,8 +15,9 @@ const Login = ({ setIsLoggedIn }) => {
     e.preventDefault();
     setError('');
 
-    // ✅ Ensure email ends with @pace.edu
-    if (!email.toLowerCase().endsWith('@pace.edu')) {
+    const emailLower = email.toLowerCase();
+
+    if (!emailLower.endsWith('@pace.edu')) {
       setError('Only Pace University email addresses are allowed.');
       return;
     }
@@ -24,7 +25,16 @@ const Login = ({ setIsLoggedIn }) => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setIsLoggedIn(true);
-      navigate('/menu'); // Redirect to Menu after login
+
+      const isCaterer = emailLower.includes('.caterer@pace.edu');
+
+      if (isCaterer) {
+        if (setUserRole) setUserRole('caterer');
+        navigate('/staff');   // Caterer dashboard
+      } else {
+        if (setUserRole) setUserRole('student');
+        navigate('/menu');    
+      }
     } catch (err) {
       switch (err.code) {
         case 'auth/invalid-email':
@@ -79,13 +89,13 @@ const Login = ({ setIsLoggedIn }) => {
           </button>
         </form>
 
-        <p className="text-center mt-3 mb-0 text-muted">
-          Don’t have an account?{' '}
+        <p className="text-center mt-3 mb-0">
+          Don&apos;t have an account?{' '}
           <a
             href="#"
             onClick={(e) => {
               e.preventDefault();
-              navigate('/register'); // ✅ go to the register page
+              navigate('/register');
             }}
           >
             Register
@@ -97,3 +107,6 @@ const Login = ({ setIsLoggedIn }) => {
 };
 
 export default Login;
+
+
+

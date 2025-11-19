@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -5,45 +6,65 @@ import { auth } from '../../firebase';
 import './Register.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Register = ({ setIsLoggedIn }) => {
+const Register = ({ setIsLoggedIn, setUserRole }) => {
+  const [role, setRole] = useState('student');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
     setError('');
 
-    // ✅ Check if email ends with pace.edu
-    if (!email.toLowerCase().endsWith('@pace.edu')) {
+    const emailLower = email.toLowerCase();
+
+    // Must end with @pace.edu
+    if (!emailLower.endsWith('@pace.edu')) {
       setError('Only Pace University email addresses are allowed.');
       return;
     }
 
-    // ✅ Password match check
+    // Caterer must have .caterer@pace.edu
+    if (role === 'caterer' && !emailLower.includes('.caterer@pace.edu')) {
+      setError('Caterer email must end with ".caterer@pace.edu".');
+      return;
+    }
+
+    // Student should not use caterer format
+    if (role === 'student' && emailLower.includes('.caterer@pace.edu')) {
+      setError('Students cannot use ".caterer@pace.edu" email format.');
+      return;
+    }
+
+    // Password match check
     if (password !== confirmPassword) {
       setError('Passwords do not match.');
       return;
     }
 
-    try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      setIsLoggedIn(true);
-      navigate('/menu'); // Redirect to Menu after successful signup
-    } catch (err) {
-      switch (err.code) {
-        case 'auth/email-already-in-use':
+    createUserWithEmailAndPassword(auth, email, password)
+      .then(() => {
+        setIsLoggedIn(true);
+
+        if (role === 'student') {
+          if (setUserRole) setUserRole('student');
+          navigate('/student');  
+        } else {
+          if (setUserRole) setUserRole('caterer');
+          navigate('/staff');    //  caterer dashboard
+        }
+      })
+      .catch((err) => {
+        if (err.code === 'auth/email-already-in-use') {
           setError('An account with this email already exists.');
-          break;
-        case 'auth/weak-password':
+        } else if (err.code === 'auth/weak-password') {
           setError('Password should be at least 6 characters.');
-          break;
-        default:
+        } else {
           setError('Registration failed. Please try again.');
-      }
-    }
+        }
+      });
   };
 
   return (
@@ -54,18 +75,46 @@ const Register = ({ setIsLoggedIn }) => {
         {error && <div className="alert alert-danger py-2">{error}</div>}
 
         <form onSubmit={handleSubmit}>
+          {/* Role */}
+          <div className="mb-3">
+            <label className="form-label">Are you a:</label>
+            <div className="d-flex justify-content-between">
+              <button
+                type="button"
+                className={`btn btn-sm ${role === 'student' ? 'btn-primary' : 'btn-outline-primary'}`}
+                onClick={() => setRole('student')}
+              >
+                Student
+              </button>
+
+              <button
+                type="button"
+                className={`btn btn-sm ${role === 'caterer' ? 'btn-primary' : 'btn-outline-primary'}`}
+                onClick={() => setRole('caterer')}
+              >
+                Caterer
+              </button>
+            </div>
+          </div>
+
+          {/* Pace Email */}
           <div className="mb-3">
             <label className="form-label">Pace Email Address</label>
             <input
               type="email"
               className="form-control"
-              placeholder="name@pace.edu"
+              placeholder={
+                role === 'caterer'
+                  ? 'username.caterer@pace.edu'
+                  : 'username@pace.edu'
+              }
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
 
+          {/* Password */}
           <div className="mb-3">
             <label className="form-label">Password</label>
             <input
@@ -78,6 +127,7 @@ const Register = ({ setIsLoggedIn }) => {
             />
           </div>
 
+          {/* Confirm Password */}
           <div className="mb-3">
             <label className="form-label">Confirm Password</label>
             <input
@@ -95,7 +145,7 @@ const Register = ({ setIsLoggedIn }) => {
           </button>
         </form>
 
-        <p className="text-center mt-3 mb-0 text-muted">
+        <p className="text-center mt-3 mb-0">
           Already have an account?{' '}
           <a
             href="#"
@@ -113,3 +163,12 @@ const Register = ({ setIsLoggedIn }) => {
 };
 
 export default Register;
+
+
+
+
+
+
+
+
+

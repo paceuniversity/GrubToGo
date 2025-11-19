@@ -41,15 +41,16 @@ Dining staff list leftover meals with photos and pickup times. Students browse, 
 
 * [Sprint planning](https://docs.google.com/spreadsheets/d/1ippBgPRMhqo_UdZmyy8bxRogwDEbddCK/edit?gid=276754774#gid=276754774)
 * [Scrums](https://docs.google.com/document/d/1vUxR2_czdF6swkvL9h0me3PDxLuU4ACZbEiL7pgIfkY/edit?tab=t.0)
-* [Sprint demo video]()
-* [Sprint retrospective]()
+* [Sprint demo video ](https://drive.google.com/file/d/1Bb8PvZ7chF96PWf1zuTSbCxO0NAHpKAb/view?usp=sharing)
+* [Sprint retrospective](https://docs.google.com/document/d/1UvkI032NdWcJYoAz3D-rwh2xmQ9csReh_QDla01NZ9M/edit?tab=t.0)
+
 
 ### Sprint 2
 
-* [Sprint planning]()
-* [Scrums]()
+* [Sprint planning](https://docs.google.com/spreadsheets/d/1ippBgPRMhqo_UdZmyy8bxRogwDEbddCK/edit?gid=1198168633#gid=1198168633)
+* [Scrums](https://docs.google.com/document/d/19yI2ZKOXQhRFwrQItwOwjIaWA1OGadO0JTLuIpM1TJw/edit?tab=t.0)
 * [Sprint demo video]()
-* [Sprint retrospective]()
+* [Sprint retrospective](https://docs.google.com/document/d/1twe9M_zes8XKHaV4wLPbjVY97EBEhf8zinLogMbz7jo/edit?tab=t.0)
 
 ### Sprint 3
 
