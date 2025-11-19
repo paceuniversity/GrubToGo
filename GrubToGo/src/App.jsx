@@ -109,6 +109,7 @@ const App = () => {
           />
 
           {/* Caterer Home */}
+          {/* Routes available only for caterer role */}
           <Route
             path="/staff"
             element={
