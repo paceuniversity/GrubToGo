@@ -39,6 +39,7 @@ const App = () => {
 
         <Routes>
           {/* default route */}
+          {/* Redirect root URL to login page */}
           <Route path="/" element={<Navigate to="/login" />} />
 
           {/* auth */}
