@@ -30,10 +30,10 @@ const Login = ({ setIsLoggedIn, setUserRole }) => {
 
       if (isCaterer) {
         if (setUserRole) setUserRole('caterer');
-        navigate('/staff');   // Caterer dashboard
+        navigate('/staff');
       } else {
         if (setUserRole) setUserRole('student');
-        navigate('/menu');    
+        navigate('/menu');
       }
     } catch (err) {
       switch (err.code) {
@@ -107,6 +107,3 @@ const Login = ({ setIsLoggedIn, setUserRole }) => {
 };
 
 export default Login;
-
-
-

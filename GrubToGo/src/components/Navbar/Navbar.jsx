@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import './Navbar.css';
 import { assets } from '../../assets/assets';
@@ -28,7 +27,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
       <ul className="navbar-menu">
         {isCaterer ? (
           <>
-            {/* Caterer Home  */}
+            {/* Caterer Home */}
             <li>
               <NavLink
                 to="/staff"
@@ -52,7 +51,6 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
           </>
         ) : (
           <>
-    
             <li>
               <NavLink
                 to="/menu"
@@ -106,13 +104,3 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
 };
 
 export default Navbar;
-
-
-
-
-
-
-
-
-
-
