@@ -39,6 +39,7 @@ const App = () => {
 
         <Routes>
           {/* default route */}
+          {/* Redirect root URL to login page */}
           <Route path="/" element={<Navigate to="/login" />} />
 
           {/* auth */}
@@ -108,6 +109,7 @@ const App = () => {
           />
 
           {/* Caterer Home */}
+          {/* Routes available only for caterer role */}
           <Route
             path="/staff"
             element={
