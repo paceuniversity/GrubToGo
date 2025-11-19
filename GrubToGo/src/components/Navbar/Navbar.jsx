@@ -7,6 +7,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
   const [menu, setMenu] = useState('home');
   const navigate = useNavigate();
 
+  
   const handleSignIn = () => {
     navigate('/login');
   };
