@@ -15,6 +15,7 @@ import SizzlingWokMenu from './pages/SizzlingWokMenu';
 import BurgerBarnMenu from './pages/BurgerBarnMenu';
 import CurryCornerMenu from './pages/CurryCornerMenu';
 import GreenBowlMenu from './pages/GreenBowlMenu';
+import CartFab from './components/CartFab';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -24,11 +25,14 @@ const App = () => {
     <CartProvider>
       <div className="app">
         {isLoggedIn && (
-          <Navbar
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-            userRole={userRole}
-          />
+          <>
+            <Navbar
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              userRole={userRole}
+            />
+            <CartFab />
+          </>
         )}
 
         <Routes>

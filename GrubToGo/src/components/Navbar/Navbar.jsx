@@ -78,15 +78,6 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
                 My Orders
               </NavLink>
             </li>
-            <li>
-              <NavLink
-                to="/cart"
-                className={menu === 'cart' ? 'active' : ''}
-                onClick={() => setMenu('cart')}
-              >
-                Cart
-              </NavLink>
-            </li>
           </>
         )}
       </ul>
@@ -94,7 +85,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
       {/* Right side button */}
       <div className="navbar-right">
         {isLoggedIn ? (
-          <button onClick={handleSignOut}>sign out</button>
+          <button className="signout-btn" onClick={handleSignOut}>sign out</button>
         ) : (
           <button onClick={handleSignIn}>sign in</button>
         )}
