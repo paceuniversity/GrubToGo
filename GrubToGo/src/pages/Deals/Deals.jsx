@@ -38,7 +38,6 @@ const Deals = () => {
   };
   const removeFilter = (value) => setAppliedFilters((prev) => prev.filter(f => f !== value));
 
-  // Compose filter function
   const filteredDeals = appliedFilters.length
     ? dealItems.filter(d => appliedFilters.every(fv => FILTERS.find(f => f.value === fv).fn(d)))
     : dealItems;
