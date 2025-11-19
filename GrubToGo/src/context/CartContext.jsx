@@ -5,7 +5,7 @@ const CartContext = createContext(null);
 export const CartProvider = ({ children }) => {
   const [items, setItems] = useState(() => {
     try {
-      const raw = localStorage.getItem('grubtogo_cart');
+      const raw = sessionStorage.getItem('grubtogo_cart');
       return raw ? JSON.parse(raw) : [];
     } catch {
       return [];
@@ -14,7 +14,7 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     try {
-      localStorage.setItem('grubtogo_cart', JSON.stringify(items));
+      sessionStorage.setItem('grubtogo_cart', JSON.stringify(items));
     } catch {}
   }, [items]);
 
