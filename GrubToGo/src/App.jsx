@@ -31,7 +31,7 @@ const App = () => {
               setIsLoggedIn={setIsLoggedIn}
               userRole={userRole}
             />
-            <CartFab /
+            <CartFab />
           </>
         )}
 
