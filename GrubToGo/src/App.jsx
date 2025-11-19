@@ -10,6 +10,12 @@ import { CartProvider } from './context/CartContext';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 import CatererDashboard from './pages/CatererDashboard/CatererDashboard';
+import PastaPalaceMenu from './pages/PastaPalaceMenu';
+import SizzlingWokMenu from './pages/SizzlingWokMenu';
+import BurgerBarnMenu from './pages/BurgerBarnMenu';
+import CurryCornerMenu from './pages/CurryCornerMenu';
+import GreenBowlMenu from './pages/GreenBowlMenu';
+import CartFab from './components/CartFab';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -19,11 +25,14 @@ const App = () => {
     <CartProvider>
       <div className="app">
         {isLoggedIn && (
-          <Navbar
-            isLoggedIn={isLoggedIn}
-            setIsLoggedIn={setIsLoggedIn}
-            userRole={userRole}
-          />
+          <>
+            <Navbar
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+              userRole={userRole}
+            />
+            <CartFab />
+          </>
         )}
 
         <Routes>
@@ -58,6 +67,26 @@ const App = () => {
             path="/menu"
             element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
           />
+        <Route
+          path="/menu/pasta-palace"
+          element={isLoggedIn ? <PastaPalaceMenu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu/sizzling-wok"
+          element={isLoggedIn ? <SizzlingWokMenu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu/burger-barn"
+          element={isLoggedIn ? <BurgerBarnMenu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu/curry-corner"
+          element={isLoggedIn ? <CurryCornerMenu /> : <Navigate to="/login" />}
+        />
+        <Route
+          path="/menu/green-bowl"
+          element={isLoggedIn ? <GreenBowlMenu /> : <Navigate to="/login" />}
+        />
           <Route
             path="/deals"
             element={isLoggedIn ? <Deals /> : <Navigate to="/login" />}
