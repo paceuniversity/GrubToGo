@@ -10,7 +10,7 @@
 
 .cart-row {
 	display: grid;
-	grid-template-columns: 72px 1fr auto auto auto;
+	grid-template-columns: 72px 1fr auto;
 	align-items: center;
 	gap: 0.75rem;
 	background: #fff;
@@ -35,48 +35,8 @@
 	color: #666;
 }
 
-.cart-price, .cart-subtotal {
+.cart-price {
 	font-weight: 600;
 }
 
-.cart-qty {
-	display: inline-flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-.cart-qty button {
-	width: 28px;
-	height: 28px;
-}
-
-.cart-remove {
-	border: none;
-	background: #dc3545;
-	color: #fff;
-	padding: 0.4rem 0.6rem;
-	border-radius: 6px;
-	cursor: pointer;
-}
-
-.cart-summary {
-	margin-top: 1rem;
-	display: flex;
-	justify-content: space-between;
-	font-size: 1.1rem;
-	font-weight: 600;
-}
-
-.cart-actions {
-	margin-top: 0.75rem;
-	display: flex;
-	gap: 0.5rem;
-}
-
-.cart-checkout {
-	background: #0d6efd;
-	border: none;
-	color: #fff;
-	padding: 0.5rem 0.75rem;
-	border-radius: 6px;
-	cursor: pointer;
-}
+/* Removed quantity controls, per-item remove, and summary actions -- kept styles minimal */
