@@ -120,7 +120,7 @@ const Deals = () => {
                   disabled={expired}
                   onClick={() =>
                     addItem({
-                      id: d.id, // use deal id for cart uniqueness
+                      id: d.id,
                       title: d.title,
                       price: d.discountedPrice,
                       storeName: d.storeName,
