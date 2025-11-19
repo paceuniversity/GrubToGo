@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -50,7 +49,7 @@ const Register = ({ setIsLoggedIn, setUserRole }) => {
 
         if (role === 'student') {
           if (setUserRole) setUserRole('student');
-          navigate('/student');  
+          navigate('/student');
         } else {
           if (setUserRole) setUserRole('caterer');
           navigate('/staff');    //  caterer dashboard
@@ -163,12 +162,3 @@ const Register = ({ setIsLoggedIn, setUserRole }) => {
 };
 
 export default Register;
-
-
-
-
-
-
-
-
-
