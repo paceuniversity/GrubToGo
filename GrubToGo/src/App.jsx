@@ -9,58 +9,92 @@ import Deals from './pages/Deals/Deals';
 import { CartProvider } from './context/CartContext';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import CatererDashboard from './pages/CatererDashboard/CatererDashboard';
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userRole, setUserRole] = useState(null); // 'student' or 'caterer'
 
   return (
     <CartProvider>
       <div className="app">
         {isLoggedIn && (
-          <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
+          <Navbar
+            isLoggedIn={isLoggedIn}
+            setIsLoggedIn={setIsLoggedIn}
+            userRole={userRole}
+          />
         )}
 
         <Routes>
-        <Route path="/" element={<Navigate to="/login" />} />
+          {/* default route */}
+          <Route path="/" element={<Navigate to="/login" />} />
 
-        <Route
-          path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} />}
-        />
-        <Route
-          path="/register"
-          element={<Register setIsLoggedIn={setIsLoggedIn} />}
-        />
+          {/* auth */}
+          <Route
+            path="/login"
+            element={
+              <Login
+                setIsLoggedIn={setIsLoggedIn}
+                setUserRole={setUserRole}
+              />
+            }
+          />
+          <Route
+            path="/register"
+            element={
+              <Register
+                setIsLoggedIn={setIsLoggedIn}
+                setUserRole={setUserRole}
+              />
+            }
+          />
 
-        <Route
-          path="/home"
-          element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/menu"
-          element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/deals"
-          element={isLoggedIn ? <Deals /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/cart"
-          element={isLoggedIn ? <Cart /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/order"
-          element={isLoggedIn ? <PlaceOrder /> : <Navigate to="/login" />}
-        />
+          <Route
+            path="/home"
+            element={isLoggedIn ? <Home /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/menu"
+            element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/deals"
+            element={isLoggedIn ? <Deals /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/cart"
+            element={isLoggedIn ? <Cart /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/order"
+            element={isLoggedIn ? <PlaceOrder /> : <Navigate to="/login" />}
+          />
 
-        <Route
-          path="/student"
-          element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/staff"
-          element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
-        />
+          <Route
+            path="/student"
+            element={isLoggedIn ? <Menu /> : <Navigate to="/login" />}
+          />
+
+          {/* Caterer Home */}
+          <Route
+            path="/staff"
+            element={
+              isLoggedIn && userRole === 'caterer'
+                ? <CatererDashboard />
+                : <Navigate to="/login" />
+            }
+          />
+
+          {/* Caterer Order Details */}
+          <Route
+            path="/staff/orders"
+            element={
+              isLoggedIn && userRole === 'caterer'
+                ? <CatererDashboard />
+                : <Navigate to="/login" />
+            }
+          />
         </Routes>
       </div>
     </CartProvider>

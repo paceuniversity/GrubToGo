@@ -3,7 +3,7 @@ import './Navbar.css';
 import { assets } from '../../assets/assets';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 
-const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
+const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
   const [menu, setMenu] = useState('home');
   const navigate = useNavigate();
 
@@ -16,56 +16,85 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
     navigate('/login');
   };
 
+  const isCaterer = userRole === 'caterer';
+
   return (
     <div className="navbar">
       {/* Logo */}
       <Link to="/">
-        <img src={assets.logo} alt="Grub To Go" className="logo" />
+        <img src={assets.logo} alt="GrubToGo" className="logo" />
       </Link>
 
-      {/* Menu links */}
+      {/* Center menu */}
       <ul className="navbar-menu">
-        <li>
-          <NavLink
-            to="/menu"
-            className={menu === 'menu' ? 'active' : ''}
-            onClick={() => setMenu('menu')}
-          >
-            Home
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/deals"
-            className={menu === 'deals' ? 'active' : ''}
-            onClick={() => setMenu('deals')}
-          >
-            Deals
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/my-orders"
-            className={menu === 'my-orders' ? 'active' : ''}
-            onClick={() => setMenu('my-orders')}
-          >
-            My Orders
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            to="/cart"
-            className={menu === 'cart' ? 'active' : ''}
-            onClick={() => setMenu('cart')}
-          >
-            Cart
-          </NavLink>
-        </li>
+        {isCaterer ? (
+          <>
+            {/* Caterer Home */}
+            <li>
+              <NavLink
+                to="/staff"
+                className={menu === 'home' ? 'active' : ''}
+                onClick={() => setMenu('home')}
+              >
+                Home
+              </NavLink>
+            </li>
+
+            {/* Caterer Order Details */}
+            <li>
+              <NavLink
+                to="/staff/orders"
+                className={menu === 'orders' ? 'active' : ''}
+                onClick={() => setMenu('orders')}
+              >
+                Order Details
+              </NavLink>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <NavLink
+                to="/menu"
+                className={menu === 'menu' ? 'active' : ''}
+                onClick={() => setMenu('menu')}
+              >
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/deals"
+                className={menu === 'deals' ? 'active' : ''}
+                onClick={() => setMenu('deals')}
+              >
+                Deals
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/my-orders"
+                className={menu === 'my-orders' ? 'active' : ''}
+                onClick={() => setMenu('my-orders')}
+              >
+                My Orders
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/cart"
+                className={menu === 'cart' ? 'active' : ''}
+                onClick={() => setMenu('cart')}
+              >
+                Cart
+              </NavLink>
+            </li>
+          </>
+        )}
       </ul>
 
+      {/* Right side button */}
       <div className="navbar-right">
-        
-
         {isLoggedIn ? (
           <button onClick={handleSignOut}>sign out</button>
         ) : (
@@ -77,5 +106,3 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn }) => {
 };
 
 export default Navbar;
-
-
