@@ -23,7 +23,6 @@ const CatererDashboard = () => {
                 <div className="store-body">
                   <div className="store-header">
                     <h3 className="store-name">{s.name}</h3>
-                    <span className="store-rating">★ {s.rating.toFixed(1)}</span>
                   </div>
                   <p className="store-meta">
                     {s.cuisine} • {s.priceRange} • {s.etaMins} min

@@ -42,14 +42,6 @@ export const deals = [
     discountPercent: 35,
     expiry: new Date(Date.now() + 45 * 60 * 1000).toISOString(), // 45 mins
   },
-  {
-    id: 'deal-green-bowl',
-    storeId: 5,
-    title: 'Protein Power Bowl',
-    originalPrice: 11.25,
-    discountPercent: 15,
-    expiry: new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString(), // 4 hours
-  },
 ];
 
 export function enrichDeals(list = deals) {

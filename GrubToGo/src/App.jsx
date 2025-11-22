@@ -14,7 +14,6 @@ import PastaPalaceMenu from './pages/PastaPalaceMenu';
 import SizzlingWokMenu from './pages/SizzlingWokMenu';
 import BurgerBarnMenu from './pages/BurgerBarnMenu';
 import CurryCornerMenu from './pages/CurryCornerMenu';
-import GreenBowlMenu from './pages/GreenBowlMenu';
 import CartFab from './components/CartFab';
 
 const App = () => {
@@ -33,7 +32,8 @@ const App = () => {
               setIsLoggedIn={setIsLoggedIn}
               userRole={userRole}
             />
-            <CartFab />
+            {/* Show cart only for non-caterer users */}
+            {userRole !== 'caterer' && <CartFab />}
           </>
         )}
 
@@ -85,10 +85,6 @@ const App = () => {
         <Route
           path="/menu/curry-corner"
           element={isLoggedIn ? <CurryCornerMenu /> : <Navigate to="/login" />}
-        />
-        <Route
-          path="/menu/green-bowl"
-          element={isLoggedIn ? <GreenBowlMenu /> : <Navigate to="/login" />}
         />
           <Route
             path="/deals"

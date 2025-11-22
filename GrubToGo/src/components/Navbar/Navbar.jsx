@@ -5,6 +5,7 @@ import { NavLink, Link, useNavigate } from 'react-router-dom';
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
   const [menu, setMenu] = useState('home');
+  const [profileOpen, setProfileOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleSignIn = () => {
@@ -13,7 +14,14 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
 
   const handleSignOut = () => {
     setIsLoggedIn(false);
+    setProfileOpen(false);
     navigate('/login');
+  };
+
+  const handleProfile = () => {
+    setProfileOpen(false);
+    // Navigate to profile page when implemented
+    // navigate('/profile');
   };
 
   const isCaterer = userRole === 'caterer';
@@ -85,7 +93,17 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
       {/* Right side button */}
       <div className="navbar-right">
         {isLoggedIn ? (
-          <button className="signout-btn" onClick={handleSignOut}>sign out</button>
+          <div className="profile-container">
+            <button className="profile-btn" onClick={() => setProfileOpen(!profileOpen)}>
+              Profile
+            </button>
+            {profileOpen && (
+              <div className="profile-dropdown">
+                <div className="profile-option" onClick={handleProfile}>Profile</div>
+                <div className="profile-option signout-option" onClick={handleSignOut}>Sign Out</div>
+              </div>
+            )}
+          </div>
         ) : (
           <button onClick={handleSignIn}>sign in</button>
         )}
