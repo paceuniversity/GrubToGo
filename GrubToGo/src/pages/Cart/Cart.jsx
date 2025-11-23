@@ -3,7 +3,7 @@ import './Cart.css';
 import { useCart } from '../../context/CartContext';
 
 const Cart = () => {
-  const { items } = useCart();
+  const { items, removeItem } = useCart();
 
   
   if (!items.length) {
@@ -27,6 +27,13 @@ const Cart = () => {
               <div className="cart-store">{it.storeName}</div>
             </div>
             <div className="cart-price">${it.price.toFixed(2)}</div>
+            <button 
+              className="cart-remove-btn"
+              onClick={() => removeItem(it.id)}
+              title="Remove from cart"
+            >
+              ✕
+            </button>
           </div>
         ))}
       </div>

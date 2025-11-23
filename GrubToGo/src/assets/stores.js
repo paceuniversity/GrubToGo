@@ -1,16 +1,17 @@
-// Simple seed data for five stores shown on the Menu page
+// Simple seed data for stores shown on the Menu page
 // Each store can later be extended with real images and metadata
-import header_img from "./header_img.png";
-import react_icon from "./react.svg";
+import pastaPalaceImg from "./Pasta Palace/homepage.jpg";
+import sizzlingWokImg from "./Sizzling Wok/homepage.jpg";
+import burgerBarnImg from "./Burger Barn/homepage.jpg";
+import curryCornerImg from "./Curry Corner/homepage.jpg";
 
 export const stores = [
   {
     id: 1,
     name: "Pasta Palace",
     cuisine: "Italian",
-    rating: 4.6,
     etaMins: 25,
-    image: header_img,
+    image: pastaPalaceImg,
     description: "Fresh pasta, classic sauces, and oven-baked lasagna.",
     priceRange: "$$",
   },
@@ -18,9 +19,8 @@ export const stores = [
     id: 2,
     name: "Sizzling Wok",
     cuisine: "Asian Fusion",
-    rating: 4.5,
     etaMins: 20,
-    image: react_icon,
+    image: sizzlingWokImg,
     description: "Stir-fries, noodles, and bold flavors made to order.",
     priceRange: "$-$$",
   },
@@ -28,9 +28,8 @@ export const stores = [
     id: 3,
     name: "Burger Barn",
     cuisine: "American",
-    rating: 4.4,
     etaMins: 18,
-    image: header_img,
+    image: burgerBarnImg,
     description: "Smash burgers, loaded fries, and hand-spun shakes.",
     priceRange: "$",
   },
@@ -38,21 +37,10 @@ export const stores = [
     id: 4,
     name: "Curry Corner",
     cuisine: "Indian",
-    rating: 4.7,
     etaMins: 30,
-    image: react_icon,
+    image: curryCornerImg,
     description: "Rich curries, biryanis, and fresh tandoor roti.",
     priceRange: "$$",
-  },
-  {
-    id: 5,
-    name: "Green Bowl",
-    cuisine: "Healthy / Bowls",
-    rating: 4.3,
-    etaMins: 15,
-    image: header_img,
-    description: "Build-your-own salads, grain bowls, and smoothies.",
-    priceRange: "$-$$",
   },
 ];
 

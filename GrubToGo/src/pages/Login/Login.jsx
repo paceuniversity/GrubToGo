@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
+import { getUser } from '../../services/firestoreService';
 import './Login.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -23,12 +24,22 @@ const Login = ({ setIsLoggedIn, setUserRole }) => {
     }
 
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      
+      // Fetch user data from Firestore
+      const userData = await getUser(userCredential.user.uid);
+      
+      if (!userData) {
+        setError('User profile not found. Please contact support.');
+        return;
+      }
+
       setIsLoggedIn(true);
 
-      const isCaterer = emailLower.includes('.caterer@pace.edu');
+      // Use role from Firestore
+      const userRole = userData.role;
 
-      if (isCaterer) {
+      if (userRole === 'caterer') {
         if (setUserRole) setUserRole('caterer');
         navigate('/staff');
       } else {

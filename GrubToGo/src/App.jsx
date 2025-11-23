@@ -6,6 +6,8 @@ import Menu from './pages/Menu/Menu';
 import Cart from './pages/Cart/Cart';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Deals from './pages/Deals/Deals';
+import Profile from './pages/Profile/Profile';
+import OrderQueue from './pages/OrderQueue/OrderQueue';
 import { CartProvider } from './context/CartContext';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -14,13 +16,13 @@ import PastaPalaceMenu from './pages/PastaPalaceMenu';
 import SizzlingWokMenu from './pages/SizzlingWokMenu';
 import BurgerBarnMenu from './pages/BurgerBarnMenu';
 import CurryCornerMenu from './pages/CurryCornerMenu';
-import GreenBowlMenu from './pages/GreenBowlMenu';
 import CartFab from './components/CartFab';
 
 const App = () => {
     // State to track if user is logged in and what role (student or caterer)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null); // 'student' or 'caterer'
+  const [queuedOfferings, setQueuedOfferings] = useState([]); // Caterer offering queue
 
   return (
     <CartProvider>
@@ -33,7 +35,8 @@ const App = () => {
               setIsLoggedIn={setIsLoggedIn}
               userRole={userRole}
             />
-            <CartFab />
+            {/* Show cart only for non-caterer users */}
+            {userRole !== 'caterer' && <CartFab />}
           </>
         )}
 
@@ -86,10 +89,6 @@ const App = () => {
           path="/menu/curry-corner"
           element={isLoggedIn ? <CurryCornerMenu /> : <Navigate to="/login" />}
         />
-        <Route
-          path="/menu/green-bowl"
-          element={isLoggedIn ? <GreenBowlMenu /> : <Navigate to="/login" />}
-        />
           <Route
             path="/deals"
             element={isLoggedIn ? <Deals /> : <Navigate to="/login" />}
@@ -101,6 +100,10 @@ const App = () => {
           <Route
             path="/order"
             element={isLoggedIn ? <PlaceOrder /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/profile"
+            element={isLoggedIn ? <Profile /> : <Navigate to="/login" />}
           />
 
           <Route
@@ -114,7 +117,17 @@ const App = () => {
             path="/staff"
             element={
               isLoggedIn && userRole === 'caterer'
-                ? <CatererDashboard />
+                ? <CatererDashboard queuedOfferings={queuedOfferings} setQueuedOfferings={setQueuedOfferings} />
+                : <Navigate to="/login" />
+            }
+          />
+
+          {/* Caterer Order Queue */}
+          <Route
+            path="/staff/queue"
+            element={
+              isLoggedIn && userRole === 'caterer'
+                ? <OrderQueue queuedOfferings={queuedOfferings} setQueuedOfferings={setQueuedOfferings} />
                 : <Navigate to="/login" />
             }
           />
@@ -124,7 +137,7 @@ const App = () => {
             path="/staff/orders"
             element={
               isLoggedIn && userRole === 'caterer'
-                ? <CatererDashboard />
+                ? <CatererDashboard queuedOfferings={queuedOfferings} setQueuedOfferings={setQueuedOfferings} />
                 : <Navigate to="/login" />
             }
           />

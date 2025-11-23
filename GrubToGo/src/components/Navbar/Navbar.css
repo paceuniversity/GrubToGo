@@ -38,19 +38,58 @@
   background-color: #fff4f2;
 }
 
-.signout-btn {
-  background: none;
-  color: #ff2222 !important;
-  border: none;
-  font-weight: bold;
+.profile-container {
+  position: relative;
+}
+
+.profile-btn {
+  background: transparent;
+  color: #49557e;
+  border: 1px solid tomato;
+  font-weight: 600;
   padding: 10px 30px;
   border-radius: 50px;
-  box-shadow: none;
-  transition: color 0.2s;
+  cursor: pointer;
+  transition: background 0.2s;
 }
-.signout-btn:hover {
-  color: #fff;
-  background: #ff2222;
+
+.profile-btn:hover {
+  background-color: #fff4f2;
+}
+
+.profile-dropdown {
+  position: absolute;
+  top: 110%;
+  right: 0;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  min-width: 160px;
+  z-index: 100;
+  overflow: hidden;
+}
+
+.profile-option {
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 15px;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.profile-option:hover {
+  background: #f5f5f5;
+}
+
+.signout-option {
+  color: #ff2222;
+  font-weight: 600;
+  border-top: 1px solid #eee;
+}
+
+.signout-option:hover {
+  background: #fff4f2;
 }
 
 .navbar .active{

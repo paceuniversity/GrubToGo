@@ -10,8 +10,8 @@ const Menu = () => {
     'Sizzling Wok': '/menu/sizzling-wok',
     'Burger Barn': '/menu/burger-barn',
     'Curry Corner': '/menu/curry-corner',
-    'Green Bowl': '/menu/green-bowl',
   };
+
   return (
     <div className="menu-page">
       <h1 className="menu-title">Browse Stores</h1>
