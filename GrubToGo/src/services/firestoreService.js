@@ -248,12 +248,18 @@ export const getPastOrders = async (studentId) => {
   const q = query(
     collection(db, 'orders'),
     where('studentId', '==', studentId),
-    where('isPickedUp', '==', true),
-    orderBy('pickedUpAt', 'desc')
+    where('isPickedUp', '==', true)
   );
 
   const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const orders = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  
+  // Sort client-side by pickedUpAt or orderedAt
+  return orders.sort((a, b) => {
+    const aTime = a.pickedUpAt?.toMillis() || a.orderedAt?.toMillis() || 0;
+    const bTime = b.pickedUpAt?.toMillis() || b.orderedAt?.toMillis() || 0;
+    return bTime - aTime; // Descending order (most recent first)
+  });
 };
 
 /**

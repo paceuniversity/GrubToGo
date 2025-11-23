@@ -129,13 +129,20 @@ const PastaPalaceMenu = () => {
             key={item.id}
             item={item}
             deal={activeDeals[item.name] || null}
-            onAddToCart={(item, price) => addItem({ 
-              id: item.id, 
-              title: item.name, 
-              price: price, 
-              storeName: 'Pasta Palace', 
-              image: item.img 
-            })}
+            onAddToCart={(item, price) => {
+              const deal = activeDeals[item.name];
+              if (!deal || !deal.offeringId) {
+                alert('This deal is no longer available');
+                return;
+              }
+              addItem({ 
+                id: deal.offeringId, // Use offering ID from Firestore, not menu item ID
+                title: item.name, 
+                price: price, 
+                storeName: 'Pasta Palace', 
+                image: item.img 
+              });
+            }}
           />
         ))}
       </div>
