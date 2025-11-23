@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { auth } from '../../firebase';
-import { getAllOrders, getCatererOfferings } from '../../services/firestoreService';
+import { getAllOrders, getCatererOfferings, updateOrderStatus } from '../../services/firestoreService';
 import './OrderDetails.css';
 
 const OrderDetails = () => {
@@ -79,6 +79,20 @@ const OrderDetails = () => {
     });
   };
 
+  const handleMarkPickedUp = async (orderId) => {
+    if (!window.confirm('Mark this order as picked up?')) return;
+    
+    try {
+      await updateOrderStatus(orderId, 'picked_up');
+      // Reload data to reflect changes
+      await loadData();
+      alert('Order marked as picked up!');
+    } catch (error) {
+      console.error('Error updating order:', error);
+      alert('Failed to update order: ' + error.message);
+    }
+  };
+
   const filteredOrders = getFilteredOrders();
   const activeCount = orders.filter(o => !o.isPickedUp).length;
   const completedCount = orders.filter(o => o.isPickedUp).length;
@@ -155,9 +169,8 @@ const OrderDetails = () => {
         ) : (
           <div className="orders-list">
             {offerings.filter(offering => {
-              // Show if sold OR if active and not expired
-              return offering.status === 'sold' || 
-                     (offering.status === 'active' && offering.expiresAt?.toMillis() > Date.now());
+              // Only show active and not expired offerings (exclude sold items)
+              return offering.status === 'active' && offering.expiresAt?.toMillis() > Date.now();
             }).map((offering) => (
               <div key={offering.id} className="order-card">
                 <div className="order-card-header">
@@ -187,19 +200,6 @@ const OrderDetails = () => {
                     <span className="info-label">Expires:</span>
                     <span className="info-value">{formatDate(offering.expiresAt)}</span>
                   </div>
-
-                  {offering.status === 'sold' && (
-                    <>
-                      <div className="order-info-row">
-                        <span className="info-label">Sold At:</span>
-                        <span className="info-value">{formatDate(offering.purchasedAt)}</span>
-                      </div>
-                      <div className="order-info-row">
-                        <span className="info-label">Order ID:</span>
-                        <span className="info-value">{offering.orderId?.slice(-8)}</span>
-                      </div>
-                    </>
-                  )}
                 </div>
               </div>
             ))}
@@ -214,11 +214,11 @@ const OrderDetails = () => {
         ) : (
           <div className="orders-list">
             {filteredOrders.map((order) => (
-            <div key={order.orderId} className="order-card">
+            <div key={order.id} className="order-card">
               <div className="order-card-header">
-                <div className="order-id">Order #{order.orderId.slice(-8)}</div>
+                <div className="order-id">Order #{order.id?.slice(-8) || 'N/A'}</div>
                 <span className={`status-badge ${getStatusBadgeClass(order.orderStatus)}`}>
-                  {order.orderStatus.replace('_', ' ').toUpperCase()}
+                  {order.orderStatus?.replace('_', ' ').toUpperCase() || 'UNKNOWN'}
                 </span>
               </div>
 
@@ -255,6 +255,17 @@ const OrderDetails = () => {
                   </div>
                 )}
               </div>
+
+              {!order.isPickedUp && (
+                <div className="order-card-actions">
+                  <button 
+                    className="btn-mark-picked-up"
+                    onClick={() => handleMarkPickedUp(order.id)}
+                  >
+                    Mark Picked Up
+                  </button>
+                </div>
+              )}
             </div>
           ))}
         </div>

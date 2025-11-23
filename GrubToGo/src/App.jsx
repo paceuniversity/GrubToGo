@@ -17,6 +17,7 @@ import PastaPalaceMenu from './pages/PastaPalaceMenu';
 import SizzlingWokMenu from './pages/SizzlingWokMenu';
 import BurgerBarnMenu from './pages/BurgerBarnMenu';
 import CurryCornerMenu from './pages/CurryCornerMenu';
+import MyOrders from './pages/MyOrders/MyOrders';
 import CartFab from './components/CartFab';
 
 const App = () => {
@@ -97,6 +98,10 @@ const App = () => {
           <Route
             path="/cart"
             element={isLoggedIn ? <Cart /> : <Navigate to="/login" />}
+          />
+          <Route
+            path="/my-orders"
+            element={isLoggedIn ? <MyOrders /> : <Navigate to="/login" />}
           />
           <Route
             path="/order"
