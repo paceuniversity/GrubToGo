@@ -76,8 +76,9 @@ export const createOffering = async (offeringData) => {
     catererId: offeringData.catererId,
     storeId: offeringData.storeId,
     itemName: offeringData.itemName,
-    discountType: offeringData.discountType,
-    discountValue: offeringData.discountValue,
+    discountPercent: offeringData.discountPercent,
+    durationHours: offeringData.durationHours,
+    durationMinutes: offeringData.durationMinutes,
     createdAt: Timestamp.now(),
     expiresAt: offeringData.expiresAt,
     status: 'active',
@@ -98,12 +99,14 @@ export const getActiveOfferings = async () => {
   const q = query(
     collection(db, 'offerings'),
     where('status', '==', 'active'),
-    where('expiresAt', '>', now),
-    orderBy('expiresAt', 'asc')
+    where('expiresAt', '>', now)
   );
 
   const snapshot = await getDocs(q);
-  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  const offerings = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  
+  // Sort on client side
+  return offerings.sort((a, b) => a.expiresAt.toMillis() - b.expiresAt.toMillis());
 };
 
 /**

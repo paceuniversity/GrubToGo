@@ -8,6 +8,7 @@ import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Deals from './pages/Deals/Deals';
 import Profile from './pages/Profile/Profile';
 import OrderQueue from './pages/OrderQueue/OrderQueue';
+import OrderDetails from './pages/OrderDetails/OrderDetails';
 import { CartProvider } from './context/CartContext';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -137,7 +138,7 @@ const App = () => {
             path="/staff/orders"
             element={
               isLoggedIn && userRole === 'caterer'
-                ? <CatererDashboard queuedOfferings={queuedOfferings} setQueuedOfferings={setQueuedOfferings} />
+                ? <OrderDetails />
                 : <Navigate to="/login" />
             }
           />

@@ -55,8 +55,7 @@ Fields:
   - catererId: string (userId of the caterer who created this)
   - storeId: number
   - itemName: string (e.g., "Lasagna", "Kung Pao Chicken")
-  - discountType: string (enum: "percentage" | "direct")
-  - discountValue: number (percentage or dollar amount)
+  - discountPercent: number (discount percentage, e.g., 25 for 25% off)
   
   // Timing fields
   - createdAt: timestamp (when offering was created)
@@ -66,8 +65,6 @@ Fields:
   
   // Status fields
   - status: string (enum: "active" | "sold" | "expired")
-  - quantity: number (always 1 for this system)
-  - availableQuantity: number (1 if available, 0 if sold)
   
   // Order tracking (populated when sold)
   - orderId: string (null until ordered)
@@ -84,8 +81,7 @@ Example Document (Active):
   catererId: "caterer_uid_456",
   storeId: 1,
   itemName: "Lasagna",
-  discountType: "percentage",
-  discountValue: 25,
+  discountPercent: 25,
   createdAt: Timestamp(2025-11-22 10:00:00),
   expiresAt: Timestamp(2025-11-22 12:30:00),
   status: "active",
@@ -99,7 +95,6 @@ Example Document (Sold):
   offeringId: "off_abc123",
   // ... all fields same as above ...
   status: "sold",
-  availableQuantity: 0,
   orderId: "ord_xyz789",
   purchasedBy: "student_uid_789",
   purchasedAt: Timestamp(2025-11-22 11:15:00)

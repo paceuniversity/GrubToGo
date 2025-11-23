@@ -68,35 +68,35 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
     }
 
     const data = offeringData[item.id] || {};
-    const discountType = data.discountType || 'percentage';
-    const discountValue = parseFloat(data.discountValue) || 0;
+    const discountPercent = parseFloat(data.discountPercent) || 0;
     const hours = parseInt(data.hours) || 0;
     const minutes = parseInt(data.minutes) || 0;
 
-    if (discountValue <= 0 || (hours === 0 && minutes === 0)) {
-      alert('Please enter valid discount and timer values');
+    if (discountPercent <= 0 || discountPercent > 100 || (hours === 0 && minutes === 0)) {
+      alert('Please enter valid discount (1-100%) and timer values');
       return;
     }
 
-    // Calculate discounted price
-    let discountedPrice;
-    if (discountType === 'percentage') {
-      discountedPrice = item.price * (1 - discountValue / 100);
-    } else {
-      discountedPrice = item.price - discountValue;
-    }
+    // Calculate discounted price and expiration time
+    const discountedPrice = item.price * (1 - discountPercent / 100);
+    const expiresAt = new Date(Date.now() + (hours * 60 + minutes) * 60000);
+
+    // Find the store ID
+    const store = stores.find(s => s.name === storeName);
+    const storeId = store ? store.id : 1;
 
     const offering = {
       itemId: item.id,
+      storeId,
       storeName,
       itemName: item.name,
       originalPrice: item.price,
-      discountType,
-      discountValue,
+      discountPercent,
       discountedPrice: discountedPrice.toFixed(2),
       duration: `${hours}h ${minutes}m`,
       durationHours: hours,
       durationMinutes: minutes,
+      expiresAt,
       image: item.img
     };
 
@@ -124,17 +124,6 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
             <div className="deals-grid">
               {items.map(item => {
                 const data = offeringData[item.id] || {};
-                const discountType = data.discountType || 'percentage';
-                const discountValue = parseFloat(data.discountValue) || 0;
-                let discountedPrice = item.price;
-                
-                if (discountValue > 0) {
-                  if (discountType === 'percentage') {
-                    discountedPrice = item.price * (1 - discountValue / 100);
-                  } else {
-                    discountedPrice = item.price - discountValue;
-                  }
-                }
 
                 return (
                   <div key={item.id} className="deal-card">
@@ -145,35 +134,21 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
                       <div className="deal-pricing">
                         <span style={{ fontSize: '0.75rem', color: '#666', marginRight: '0.3rem' }}>Original Price:</span>
                         <span className="deal-original">${item.price.toFixed(2)}</span>
-                        {discountValue > 0 && (
-                          <>
-                            <span className="deal-discounted">${discountedPrice.toFixed(2)}</span>
-                            <span className="deal-discount-percent">
-                              {discountType === 'percentage' ? `-${discountValue}%` : `-$${discountValue}`} OFF!
-                            </span>
-                          </>
-                        )}
                       </div>
                       
                       {/* Discount input */}
                       <div style={{ marginTop: '0.5rem', display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                        <select 
-                          value={discountType}
-                          onChange={(e) => handleDiscountChange(item.id, 'discountType', e.target.value)}
-                          style={{ padding: '0.25rem', fontSize: '0.8rem', borderRadius: '4px', border: '1px solid #ccc' }}
-                        >
-                          <option value="percentage">%</option>
-                          <option value="direct">$</option>
-                        </select>
                         <input
                           type="number"
-                          placeholder="Discount"
-                          value={data.discountValue || ''}
-                          onChange={(e) => handleDiscountChange(item.id, 'discountValue', e.target.value)}
-                          style={{ padding: '0.25rem', fontSize: '0.8rem', width: '80px', borderRadius: '4px', border: '1px solid #ccc' }}
-                          min="0"
-                          step={discountType === 'percentage' ? '1' : '0.01'}
+                          placeholder="Discount %"
+                          value={data.discountPercent || ''}
+                          onChange={(e) => handleDiscountChange(item.id, 'discountPercent', e.target.value)}
+                          style={{ padding: '0.25rem', fontSize: '0.8rem', width: '100px', borderRadius: '4px', border: '1px solid #ccc' }}
+                          min="1"
+                          max="100"
+                          step="1"
                         />
+                        <span style={{ fontSize: '0.8rem', color: '#666' }}>% OFF</span>
                       </div>
 
                       {/* Timer input */}
