@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
+import { createUser } from '../../services/firestoreService';
 import './Register.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -44,15 +45,23 @@ const Register = ({ setIsLoggedIn, setUserRole }) => {
     }
 
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        setIsLoggedIn(true);
+      .then(async (userCredential) => {
+        // Create Firestore user document
+        try {
+          await createUser(userCredential.user.uid, email, role);
+          
+          setIsLoggedIn(true);
 
-        if (role === 'student') {
-          if (setUserRole) setUserRole('student');
-          navigate('/student');
-        } else {
-          if (setUserRole) setUserRole('caterer');
-          navigate('/staff');    //  caterer dashboard
+          if (role === 'student') {
+            if (setUserRole) setUserRole('student');
+            navigate('/student');
+          } else {
+            if (setUserRole) setUserRole('caterer');
+            navigate('/staff');    //  caterer dashboard
+          }
+        } catch (firestoreError) {
+          console.error('Error creating user document:', firestoreError);
+          setError('Account created but profile setup failed. Please contact support.');
         }
       })
       .catch((err) => {

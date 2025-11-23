@@ -1,0 +1,261 @@
+================================================================================
+                        GRUBTOGO DATABASE SCHEMA
+================================================================================
+Database Type: Firebase Firestore (NoSQL Document Database)
+Last Updated: November 22, 2025
+================================================================================
+
+OVERVIEW:
+---------
+This schema supports a food ordering platform where caterers can create 
+limited-time offerings (deals) and students can place orders. Each offering 
+has a single quantity (one item) and is marked as sold once ordered.
+
+================================================================================
+COLLECTIONS AND DOCUMENT STRUCTURE
+================================================================================
+
+1. USERS COLLECTION
+-------------------
+Collection: users
+Document ID: {userId} (Firebase Auth UID)
+
+Fields:
+  - userId: string (Firebase Auth UID)
+  - email: string
+  - role: string (enum: "student" | "caterer")
+  
+  // Student-specific fields (if role === "student")
+  - diningDollars: number (default: 250.00)
+
+Example Document (Student):
+{
+  userId: "auth_uid_12345",
+  email: "john@pace.edu",
+  role: "student",
+  diningDollars: 250.00
+}
+
+Example Document (Caterer):
+{
+  userId: "caterer_uid_456",
+  email: "caterer@pace.edu",
+  role: "caterer"
+}
+
+================================================================================
+
+2. OFFERINGS COLLECTION (Active Deals Created by Caterers)
+-----------------------------------------------------------
+Collection: offerings
+Document ID: {offeringId} (auto-generated)
+
+Fields:
+  - offeringId: string (auto-generated document ID)
+  - catererId: string (userId of the caterer who created this)
+  - storeId: number
+  - itemName: string (e.g., "Lasagna", "Kung Pao Chicken")
+  - discountType: string (enum: "percentage" | "direct")
+  - discountValue: number (percentage or dollar amount)
+  
+  // Timing fields
+  - createdAt: timestamp (when offering was created)
+  - expiresAt: timestamp (when offering expires)
+  - durationHours: number
+  - durationMinutes: number
+  
+  // Status fields
+  - status: string (enum: "active" | "sold" | "expired")
+  - quantity: number (always 1 for this system)
+  - availableQuantity: number (1 if available, 0 if sold)
+  
+  // Order tracking (populated when sold)
+  - orderId: string (null until ordered)
+  - purchasedBy: string (null until ordered, then student userId)
+  - purchasedAt: timestamp (null until ordered)
+
+Indexes Required:
+  - status + expiresAt (for querying active offerings)
+  - catererId + status (for caterer dashboard)
+
+Example Document (Active):
+{
+  offeringId: "off_abc123",
+  catererId: "caterer_uid_456",
+  storeId: 1,
+  itemName: "Lasagna",
+  discountType: "percentage",
+  discountValue: 25,
+  createdAt: Timestamp(2025-11-22 10:00:00),
+  expiresAt: Timestamp(2025-11-22 12:30:00),
+  status: "active",
+  orderId: null,
+  purchasedBy: null,
+  purchasedAt: null
+}
+
+Example Document (Sold):
+{
+  offeringId: "off_abc123",
+  // ... all fields same as above ...
+  status: "sold",
+  availableQuantity: 0,
+  orderId: "ord_xyz789",
+  purchasedBy: "student_uid_789",
+  purchasedAt: Timestamp(2025-11-22 11:15:00)
+}
+
+================================================================================
+
+3. ORDERS COLLECTION
+--------------------
+Collection: orders
+Document ID: {orderId} (auto-generated)
+
+Fields:
+  - orderId: string (auto-generated document ID)
+  - studentId: string (userId of the student)
+  - studentEmail: string
+  - catererId: string (userId of caterer)
+  - offeringId: string (reference to offerings collection)
+  - storeId: number
+  - itemName: string
+  - totalAmount: number (amount paid)
+  
+  // Payment (Dining Dollars)
+  - paymentMethod: string (always "Dining Dollars")
+  - studentBalanceBefore: number (balance before purchase)
+  - studentBalanceAfter: number (balance after purchase)
+  
+  // Timing
+  - orderedAt: timestamp
+  - pickupTime: timestamp (derived from offering expiry)
+  - pickedUpAt: timestamp (null until picked up)
+  
+  // Status tracking
+  - orderStatus: string (enum: "placed" | "preparing" | "ready" | "picked_up" | "cancelled")
+  - isPickedUp: boolean (false by default, true when picked up)
+
+Indexes Required:
+  - studentId + isPickedUp + orderedAt (for active/past orders)
+  - orderStatus + orderedAt (for caterer order management)
+  - isPickedUp + orderedAt (for filtering active vs past orders)
+
+Example Document:
+{
+  orderId: "ord_xyz789",
+  studentId: "student_uid_789",
+  studentEmail: "jane@pace.edu",
+  catererId: "caterer_uid_456",
+  offeringId: "off_abc123",
+  storeId: 1,
+  itemName: "Lasagna",
+  totalAmount: 10.49,
+  studentBalanceBefore: 250.00,
+  studentBalanceAfter: 239.51,
+  orderedAt: Timestamp(2025-11-22 11:15:00),
+  pickedUpAt: null,
+  orderStatus: "placed",
+  isPickedUp: false
+}
+
+================================================================================
+
+6. CART_ITEMS COLLECTION (Optional - for persistent cart)
+----------------------------------------------------------
+Collection: cartItems
+Document ID: {userId}_{offeringId}
+
+Note: Since cart is currently using sessionStorage, this collection is optional.
+If implementing persistent cart across devices, use this structure.
+
+Fields:
+  - cartItemId: string
+  - userId: string
+  - offeringId: string (reference to offerings)
+  - itemName: string
+  - storeName: string
+  - price: number
+  - imageUrl: string
+  - addedAt: timestamp
+  - expiresAt: timestamp (same as offering expiry)
+
+================================================================================
+
+7. NOTIFICATIONS COLLECTION (Future Enhancement)
+-------------------------------------------------
+Collection: notifications
+Document ID: {notificationId} (auto-generated)
+
+Fields:
+  - notificationId: string
+  - userId: string (recipient)
+  - type: string (enum: "order_placed", "order_ready", "offering_expiring", etc.)
+  - title: string
+  - message: string
+  - relatedOrderId: string (optional)
+  - relatedOfferingId: string (optional)
+  - isRead: boolean
+  - createdAt: timestamp
+
+================================================================================
+
+BUSINESS LOGIC AND RULES
+================================================================================
+
+1. CREATING AN OFFERING (Caterer Action):
+   - Caterer selects store and menu item
+   - Sets discount (percentage or direct dollar amount)
+   - Sets expiry time (hours and minutes from now)
+   - System calculates expiresAt = now + duration
+   - Creates offering document with status="active"
+   - Frontend calculates discounted price from hardcoded base prices
+
+2. PLACING AN ORDER (Student Action - TRANSACTION):
+   - Student sees active offerings (status="active", expiresAt > now)
+   - Student adds to cart (sessionStorage)
+   - On order placement:
+     * Check if offering still available (status="active")
+     * Check if student has sufficient Dining Dollars
+     * Deduct totalAmount from student's diningDollars
+     * Create order document (with balance before/after)
+     * Update offering: status="sold", orderId, purchasedBy, purchasedAt
+     * Clear cart
+
+3. OFFERING EXPIRATION (Manual or Scheduled):
+   - Frontend filters out expired offerings (expiresAt < now)
+   - Optional: Background job updates status="expired" for cleanup
+
+4. ORDER STATUS FLOW:
+   placed → preparing → ready → picked_up
+   
+   When marked "picked_up":
+   - Set isPickedUp = true
+   - Set pickedUpAt = timestamp
+   - Moves to past orders for student
+
+================================================================================
+
+CORE FUNCTIONALITIES
+================================================================================
+
+1. STUDENT FEATURES:
+   - View active deals (offerings)
+   - Add deal to cart (one item only)
+   - Place order (deducts from Dining Dollars balance)
+   - View active orders (isPickedUp = false)
+   - View past orders (isPickedUp = true)
+
+2. CATERER FEATURES:
+   - Create offerings for any store
+   - View all active offerings
+   - View all orders
+   - Update order status (placed → preparing → ready → picked_up)
+
+3. KEY TRANSACTIONS:
+   - Place Order: Check availability + Check balance + Deduct balance + Create order + Mark offering sold
+   - Mark Picked Up: Update order status + Set isPickedUp = true + Set pickedUpAt timestamp
+
+================================================================================
+END OF SCHEMA
+================================================================================

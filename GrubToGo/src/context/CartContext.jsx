@@ -20,11 +20,11 @@ export const CartProvider = ({ children }) => {
 
   const addItem = (item) => {
     setItems((prev) => {
+      // Check if item already exists - if so, don't add it again
       const idx = prev.findIndex((p) => p.id === item.id);
       if (idx !== -1) {
-        const copy = [...prev];
-        copy[idx] = { ...copy[idx], qty: copy[idx].qty + (item.qty || 1) };
-        return copy;
+        // Item already in cart, return unchanged
+        return prev;
       }
       return [...prev, { ...item, qty: item.qty || 1 }];
     });

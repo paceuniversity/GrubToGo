@@ -6,6 +6,8 @@ import Menu from './pages/Menu/Menu';
 import Cart from './pages/Cart/Cart';
 import PlaceOrder from './pages/PlaceOrder/PlaceOrder';
 import Deals from './pages/Deals/Deals';
+import Profile from './pages/Profile/Profile';
+import OrderQueue from './pages/OrderQueue/OrderQueue';
 import { CartProvider } from './context/CartContext';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
@@ -20,6 +22,7 @@ const App = () => {
     // State to track if user is logged in and what role (student or caterer)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState(null); // 'student' or 'caterer'
+  const [queuedOfferings, setQueuedOfferings] = useState([]); // Caterer offering queue
 
   return (
     <CartProvider>
@@ -98,6 +101,10 @@ const App = () => {
             path="/order"
             element={isLoggedIn ? <PlaceOrder /> : <Navigate to="/login" />}
           />
+          <Route
+            path="/profile"
+            element={isLoggedIn ? <Profile /> : <Navigate to="/login" />}
+          />
 
           <Route
             path="/student"
@@ -110,7 +117,17 @@ const App = () => {
             path="/staff"
             element={
               isLoggedIn && userRole === 'caterer'
-                ? <CatererDashboard />
+                ? <CatererDashboard queuedOfferings={queuedOfferings} setQueuedOfferings={setQueuedOfferings} />
+                : <Navigate to="/login" />
+            }
+          />
+
+          {/* Caterer Order Queue */}
+          <Route
+            path="/staff/queue"
+            element={
+              isLoggedIn && userRole === 'caterer'
+                ? <OrderQueue queuedOfferings={queuedOfferings} setQueuedOfferings={setQueuedOfferings} />
                 : <Navigate to="/login" />
             }
           />
@@ -120,7 +137,7 @@ const App = () => {
             path="/staff/orders"
             element={
               isLoggedIn && userRole === 'caterer'
-                ? <CatererDashboard />
+                ? <CatererDashboard queuedOfferings={queuedOfferings} setQueuedOfferings={setQueuedOfferings} />
                 : <Navigate to="/login" />
             }
           />

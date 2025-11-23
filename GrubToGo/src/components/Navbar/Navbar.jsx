@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import './Navbar.css';
 import { assets } from '../../assets/assets';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { useCart } from '../../context/CartContext';
 
 const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
-  const [menu, setMenu] = useState('home');
   const [profileOpen, setProfileOpen] = useState(false);
   const navigate = useNavigate();
+  const { clear } = useCart();
 
   const handleSignIn = () => {
     navigate('/login');
@@ -15,13 +16,14 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
   const handleSignOut = () => {
     setIsLoggedIn(false);
     setProfileOpen(false);
+    clear(); // Clear the cart
+    sessionStorage.removeItem('grubtogo_cart'); // Clear cart from sessionStorage
     navigate('/login');
   };
 
   const handleProfile = () => {
     setProfileOpen(false);
-    // Navigate to profile page when implemented
-    // navigate('/profile');
+    navigate('/profile');
   };
 
   const isCaterer = userRole === 'caterer';
@@ -39,10 +41,20 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
             <li>
               <NavLink
                 to="/staff"
-                className={menu === 'home' ? 'active' : ''}
-                onClick={() => setMenu('home')}
+                end
+                className={({ isActive }) => isActive ? 'active' : ''}
               >
                 Home
+              </NavLink>
+            </li>
+
+            {/* Caterer Order Queue */}
+            <li>
+              <NavLink
+                to="/staff/queue"
+                className={({ isActive }) => isActive ? 'active' : ''}
+              >
+                Order Queue
               </NavLink>
             </li>
 
@@ -50,8 +62,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
             <li>
               <NavLink
                 to="/staff/orders"
-                className={menu === 'orders' ? 'active' : ''}
-                onClick={() => setMenu('orders')}
+                className={({ isActive }) => isActive ? 'active' : ''}
               >
                 Order Details
               </NavLink>
@@ -62,8 +73,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
             <li>
               <NavLink
                 to="/menu"
-                className={menu === 'menu' ? 'active' : ''}
-                onClick={() => setMenu('menu')}
+                className={({ isActive }) => isActive ? 'active' : ''}
               >
                 Home
               </NavLink>
@@ -71,8 +81,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
             <li>
               <NavLink
                 to="/deals"
-                className={menu === 'deals' ? 'active' : ''}
-                onClick={() => setMenu('deals')}
+                className={({ isActive }) => isActive ? 'active' : ''}
               >
                 Deals
               </NavLink>
@@ -80,8 +89,7 @@ const Navbar = ({ isLoggedIn, setIsLoggedIn, userRole }) => {
             <li>
               <NavLink
                 to="/my-orders"
-                className={menu === 'my-orders' ? 'active' : ''}
-                onClick={() => setMenu('my-orders')}
+                className={({ isActive }) => isActive ? 'active' : ''}
               >
                 My Orders
               </NavLink>

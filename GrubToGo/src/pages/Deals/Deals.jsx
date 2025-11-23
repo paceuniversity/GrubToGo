@@ -99,41 +99,48 @@ const Deals = () => {
         </div>
       )}
       <div className="deals-grid">
-        {sortedDeals.map(d => {
-          const { expired, text } = useCountdown(d.expiry);
-          return (
-            <div key={d.id} className={`deal-card ${expired ? 'deal-expired' : ''}`}>              
-              <img src={d.storeImage} alt={d.storeName} className="deal-image" />
-              <div className="deal-body">
-                <span className="deal-store">{d.storeName}</span>
-                <h2 className="deal-title">{d.title}</h2>
-                <div className="deal-pricing">
-                  <span className="deal-original">${d.originalPrice.toFixed(2)}</span>
-                  <span className="deal-discounted">${d.discountedPrice.toFixed(2)}</span>
-                  {d.discountPercent && (
-                    <span className="deal-discount-percent">-{d.discountPercent}% OFF!</span>
-                  )}
+        {sortedDeals.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '3rem', color: '#666' }}>
+            <h2 style={{ fontSize: '1.5rem', marginBottom: '0.5rem' }}>No Active Deals</h2>
+            <p>Check back later for limited-time offers!</p>
+          </div>
+        ) : (
+          sortedDeals.map(d => {
+            const { expired, text } = useCountdown(d.expiry);
+            return (
+              <div key={d.id} className={`deal-card ${expired ? 'deal-expired' : ''}`}>              
+                <img src={d.storeImage} alt={d.storeName} className="deal-image" />
+                <div className="deal-body">
+                  <span className="deal-store">{d.storeName}</span>
+                  <h2 className="deal-title">{d.title}</h2>
+                  <div className="deal-pricing">
+                    <span className="deal-original student-view">${d.originalPrice.toFixed(2)}</span>
+                    <span className="deal-discounted">${d.discountedPrice.toFixed(2)}</span>
+                    {d.discountPercent && (
+                      <span className="deal-discount-percent">-{d.discountPercent}% OFF!</span>
+                    )}
+                  </div>
+                  <div className="deal-countdown">{text}</div>
+                  <button
+                    className="deal-action-btn"
+                    disabled={expired}
+                    onClick={() =>
+                      addItem({
+                        id: d.id,
+                        title: d.title,
+                        price: d.discountedPrice,
+                        storeName: d.storeName,
+                        image: d.storeImage,
+                      })
+                    }
+                  >
+                    {expired ? 'Expired' : 'Add to Cart'}
+                  </button>
                 </div>
-                <div className="deal-countdown">{text}</div>
-                <button
-                  className="deal-action-btn"
-                  disabled={expired}
-                  onClick={() =>
-                    addItem({
-                      id: d.id,
-                      title: d.title,
-                      price: d.discountedPrice,
-                      storeName: d.storeName,
-                      image: d.storeImage,
-                    })
-                  }
-                >
-                  {expired ? 'Expired' : 'Add to Cart'}
-                </button>
               </div>
-            </div>
-          );
-        })}
+            );
+          })
+        )}
       </div>
     </div>
   );
