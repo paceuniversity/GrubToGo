@@ -3,7 +3,7 @@ import './Cart.css';
 import { useCart } from '../../context/CartContext';
 
 const Cart = () => {
-  const { items } = useCart();
+  const { items, removeItem, increment, decrement, totals } = useCart();
 
   if (!items.length) {
     return (
@@ -25,9 +25,37 @@ const Cart = () => {
               <div className="cart-title">{it.title}</div>
               <div className="cart-store">{it.storeName}</div>
             </div>
-            <div className="cart-price">${it.price.toFixed(2)}</div>
+
+            <div className="cart-actions">
+              <div className="qty-controls">
+                <button
+                  className="qty-btn"
+                  onClick={() => decrement(it.id)}
+                  aria-label={`Decrease quantity of ${it.title}`}>
+                  -
+                </button>
+                <div className="qty-value">{it.qty ?? 1}</div>
+                <button
+                  className="qty-btn"
+                  onClick={() => increment(it.id)}
+                  aria-label={`Increase quantity of ${it.title}`}>
+                  +
+                </button>
+              </div>
+
+              <div className="cart-price">${(it.price * (it.qty ?? 1)).toFixed(2)}</div>
+
+              <button className="remove-btn" onClick={() => removeItem(it.id)}>
+                Remove
+              </button>
+            </div>
           </div>
         ))}
+
+        <div className="cart-summary">
+          <div className="summary-left">Total ({totals.count} items):</div>
+          <div className="summary-right">${totals.amount.toFixed(2)}</div>
+        </div>
       </div>
     </div>
   );
