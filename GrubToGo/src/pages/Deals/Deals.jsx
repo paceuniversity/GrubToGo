@@ -1,3 +1,6 @@
+// Deals Page:
+// Loads active offerings, enriches them with store info and item images,
+// and allows students to browse deals by store category.
 import React, { useEffect, useState } from 'react';
 import './Deals.css';
 import { getActiveOfferings } from '../../services/firestoreService';
@@ -6,6 +9,8 @@ import { assets } from '../../assets/assets';
 import { useCart } from '../../context/CartContext';
 
 // DealCard component to properly use useCountdown hook
+// Renders a single deal with item name, store, prices, discount, and expiry countdown for students.
+
 const DealCard = ({ deal, onAddToCart }) => {
   const { expired, text } = useCountdown(deal.expiry);
   
@@ -16,10 +21,12 @@ const DealCard = ({ deal, onAddToCart }) => {
         <span className="deal-store">{deal.store.toUpperCase()}</span>
         <h2 className="deal-title">{deal.name}</h2>
         <div className="deal-pricing">
+        {/* Pricing display: shows original price, discounted price, and the discount percentage. */}
           <span className="deal-original student-view">${deal.originalPrice.toFixed(2)}</span>
           <span className="deal-discounted">${deal.price.toFixed(2)}</span>
           <span className="deal-discount-percent">{deal.discount}</span>
         </div>
+        {/* Countdown label showing how much time is left until the deal expires. */}
         <div className="deal-countdown">{text}</div>
         <button
           className="deal-action-btn"
@@ -66,10 +73,14 @@ const menuPrices = {
   'Vegetable Biryani': 11.49,
   'Tandoori Roti': 2.99,
 };
+// useCountdown Hook:
+// Calculates how much time is left before a deal expires.
+// Updates every second and returns whether the deal is expired and a readable time label.
 
 function useCountdown(expiryTimestamp) {
   const [remaining, setRemaining] = useState(() => expiryTimestamp.toMillis() - Date.now());
   useEffect(() => {
+    // Recalculate remaining time every second to keep the countdown updated
     const id = setInterval(() => setRemaining(expiryTimestamp.toMillis() - Date.now()), 1000);
     return () => clearInterval(id);
   }, [expiryTimestamp]);
@@ -84,7 +95,8 @@ function useCountdown(expiryTimestamp) {
   return { expired: false, text };
 }
 
-
+// FILTERS config:
+// Defines the available deal filters (e.g., ending soonest) and their matching logic.
 const FILTERS = [
   { label: 'Time Remaining: Ending Soonest', value: 'soonest', fn: () => true },
 ];
@@ -98,6 +110,7 @@ const Deals = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
+    // Initial fetch of active offerings and setup auto-refresh.
     loadOfferings();
     
     // Auto-refresh every 10 seconds to remove expired deals
@@ -140,8 +153,7 @@ const Deals = () => {
         // Take the first one (expiring soonest)
         selectedOfferings.push(storeOfferings[0]);
       });
-      
-      // Enrich offerings with store name and image
+      // Enrich offerings with store name, item image, formatted pricing, and discount label.
       const enriched = selectedOfferings.map(offering => {
         const store = stores.find(s => s.id === offering.storeId);
         const originalPrice = menuPrices[offering.itemName] || 0;
@@ -171,6 +183,7 @@ const Deals = () => {
       console.log('Enriched deals (one per store):', enriched);
       setDealItems(enriched);
     } catch (error) {
+      // Error handling: log the issue and notify the user if offerings fail to load.
       console.error('Error loading offerings:', error);
       alert('Failed to load deals: ' + error.message);
     } finally {
