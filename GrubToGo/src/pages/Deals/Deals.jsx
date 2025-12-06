@@ -6,6 +6,8 @@ import { assets } from '../../assets/assets';
 import { useCart } from '../../context/CartContext';
 
 // DealCard component to properly use useCountdown hook
+// Renders a single deal with item name, store, prices, discount, and expiry countdown for students.
+
 const DealCard = ({ deal, onAddToCart }) => {
   const { expired, text } = useCountdown(deal.expiry);
   
