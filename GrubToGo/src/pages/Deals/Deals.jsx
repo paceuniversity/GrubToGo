@@ -109,6 +109,7 @@ const Deals = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   useEffect(() => {
+    // Initial fetch of active offerings and setup auto-refresh.
     loadOfferings();
     
     // Auto-refresh every 10 seconds to remove expired deals
