@@ -1,3 +1,6 @@
+// Deals Page:
+// Loads active offerings, enriches them with store info and item images,
+// and allows students to browse deals by store category.
 import React, { useEffect, useState } from 'react';
 import './Deals.css';
 import { getActiveOfferings } from '../../services/firestoreService';
