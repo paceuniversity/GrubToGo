@@ -66,6 +66,9 @@ const menuPrices = {
   'Vegetable Biryani': 11.49,
   'Tandoori Roti': 2.99,
 };
+// useCountdown Hook:
+// Calculates how much time is left before a deal expires.
+// Updates every second and returns whether the deal is expired and a readable time label.
 
 function useCountdown(expiryTimestamp) {
   const [remaining, setRemaining] = useState(() => expiryTimestamp.toMillis() - Date.now());
