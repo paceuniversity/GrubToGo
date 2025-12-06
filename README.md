@@ -54,7 +54,7 @@ Dining staff list leftover meals with photos and pickup times. Students browse, 
 
 ### Sprint 3
 
-* [Sprint planning]()
+* [Sprint planning](https://docs.google.com/spreadsheets/d/1ippBgPRMhqo_UdZmyy8bxRogwDEbddCK/edit?gid=1132141706#gid=1132141706)
 * [Scrums]()
 * [Sprint demo video]()
 * [Sprint retrospective]()
