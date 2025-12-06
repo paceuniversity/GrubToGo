@@ -78,6 +78,7 @@ const menuPrices = {
 function useCountdown(expiryTimestamp) {
   const [remaining, setRemaining] = useState(() => expiryTimestamp.toMillis() - Date.now());
   useEffect(() => {
+    // Recalculate remaining time every second to keep the countdown updated
     const id = setInterval(() => setRemaining(expiryTimestamp.toMillis() - Date.now()), 1000);
     return () => clearInterval(id);
   }, [expiryTimestamp]);
