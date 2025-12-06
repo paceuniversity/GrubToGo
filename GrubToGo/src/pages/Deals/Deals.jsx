@@ -94,7 +94,8 @@ function useCountdown(expiryTimestamp) {
   return { expired: false, text };
 }
 
-
+// FILTERS config:
+// Defines the available deal filters (e.g., ending soonest) and their matching logic.
 const FILTERS = [
   { label: 'Time Remaining: Ending Soonest', value: 'soonest', fn: () => true },
 ];
