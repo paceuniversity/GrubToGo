@@ -21,6 +21,7 @@ const DealCard = ({ deal, onAddToCart }) => {
         <span className="deal-store">{deal.store.toUpperCase()}</span>
         <h2 className="deal-title">{deal.name}</h2>
         <div className="deal-pricing">
+        {/* Pricing display: shows original price, discounted price, and the discount percentage. */}
           <span className="deal-original student-view">${deal.originalPrice.toFixed(2)}</span>
           <span className="deal-discounted">${deal.price.toFixed(2)}</span>
           <span className="deal-discount-percent">{deal.discount}</span>
