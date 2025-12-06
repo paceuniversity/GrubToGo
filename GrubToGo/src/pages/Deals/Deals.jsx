@@ -150,8 +150,7 @@ const Deals = () => {
         // Take the first one (expiring soonest)
         selectedOfferings.push(storeOfferings[0]);
       });
-      
-      // Enrich offerings with store name and image
+      // Enrich offerings with store name, item image, formatted pricing, and discount label.
       const enriched = selectedOfferings.map(offering => {
         const store = stores.find(s => s.id === offering.storeId);
         const originalPrice = menuPrices[offering.itemName] || 0;
