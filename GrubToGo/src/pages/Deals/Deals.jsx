@@ -182,6 +182,7 @@ const Deals = () => {
       console.log('Enriched deals (one per store):', enriched);
       setDealItems(enriched);
     } catch (error) {
+      // Error handling: log the issue and notify the user if offerings fail to load.
       console.error('Error loading offerings:', error);
       alert('Failed to load deals: ' + error.message);
     } finally {
