@@ -26,6 +26,7 @@ const DealCard = ({ deal, onAddToCart }) => {
           <span className="deal-discounted">${deal.price.toFixed(2)}</span>
           <span className="deal-discount-percent">{deal.discount}</span>
         </div>
+        {/* Countdown label showing how much time is left until the deal expires. */}
         <div className="deal-countdown">{text}</div>
         <button
           className="deal-action-btn"
