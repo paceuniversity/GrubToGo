@@ -1,5 +1,6 @@
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { useCart } from '../context/CartContext';
 import '../pages/Deals/Deals.css';
@@ -14,6 +15,7 @@ const GreenBowlMenu = () => {
   const { addItem } = useCart();
   return (
     <div className="deals-page">
+      <Link to="/menu" className="back-to-stores-btn">← Back to Stores</Link>
       <h1 className="deals-title">Green Bowl Menu</h1>
       <div className="deals-grid">
         {bowlItems.map(item => (

@@ -143,3 +143,46 @@
   background: #adb5bd;
   cursor: not-allowed;
 }
+
+.back-to-stores-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 1rem;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(125deg, #ff7a18, #ffb347);
+  color: #0b0b0b;
+  font-weight: 700;
+  font-size: 0.98rem;
+  letter-spacing: 0.2px;
+  cursor: pointer;
+  box-shadow: 0 14px 32px rgba(255, 122, 24, 0.25);
+  transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
+  text-decoration: none;
+}
+
+.back-to-stores-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 18px 38px rgba(255, 122, 24, 0.28);
+  filter: brightness(1.02);
+}
+
+.back-to-stores-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 10px 22px rgba(255, 122, 24, 0.3);
+  filter: brightness(0.98);
+}
+
+.back-to-stores-btn:focus-visible {
+  outline: 3px solid rgba(255, 122, 24, 0.25);
+  outline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .back-to-stores-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
