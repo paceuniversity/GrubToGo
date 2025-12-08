@@ -20,6 +20,7 @@ import CurryCornerMenu from './pages/CurryCornerMenu';
 import MyOrders from './pages/MyOrders/MyOrders';
 import CartFab from './components/CartFab';
 
+
 const App = () => {
     // State to track if user is logged in and what role (student or caterer)
   const [isLoggedIn, setIsLoggedIn] = useState(false);
