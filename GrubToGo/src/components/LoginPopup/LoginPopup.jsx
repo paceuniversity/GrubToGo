@@ -86,6 +86,7 @@ const LoginPopup = ({ setShowLogin }) => {
             By continuing, I agree to the Terms of Service and Privacy Policy
           </p>
         </div>
+    
 
         {currState === "Login" ? (
           <p>
