@@ -1,4 +1,3 @@
-
 // Deals Page:
 // Loads active offerings, enriches them with store info and item images,
 // and allows students to browse deals by store category.
@@ -11,16 +10,10 @@ import { useCart } from '../../context/CartContext';
 
 // DealCard component:
 // Renders a single deal with item name, store, prices, discount,
-// and the pickup deadline time for students 
+// and a live countdown timer for how much time is left.
 const DealCard = ({ deal, onAddToCart }) => {
-  // Still use countdown only to know if the deal is expired.
-  const { expired } = useCountdown(deal.expiry);
-
-  // pickup deadline time
-  const pickupTime = deal.expiry.toDate().toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
+  // Use countdown to know if expired AND to show the remaining time text.
+  const { expired, text } = useCountdown(deal.expiry);
 
   return (
     <div className={`deal-card ${expired ? 'deal-expired' : ''}`}>
@@ -42,9 +35,9 @@ const DealCard = ({ deal, onAddToCart }) => {
           </span>
         </div>
 
-        {/* Pickup deadline label  */}
+        {/* Countdown label showing how much time is left until the deal expires. */}
         <div className="deal-countdown">
-          Pick up by {pickupTime}
+          {text}
         </div>
 
         <button
@@ -96,7 +89,7 @@ const menuPrices = {
 // useCountdown Hook:
 // Calculates how much time is left before a deal expires.
 // Updates every second and returns whether the deal is expired
-// and a readable time label (text). We now only use "expired" in DealCard.
+// and a readable time label, e.g. "2h 3m 10s left" or "4m 20s left".
 function useCountdown(expiryTimestamp) {
   const [remaining, setRemaining] = useState(
     () => expiryTimestamp.toMillis() - Date.now()
@@ -117,10 +110,12 @@ function useCountdown(expiryTimestamp) {
   const hours = Math.floor(totalSeconds / 3600);
   const minutes = Math.floor((totalSeconds % 3600) / 60);
   const seconds = totalSeconds % 60;
+
   const text =
     hours > 0
       ? `${hours}h ${minutes}m ${seconds}s left`
       : `${minutes}m ${seconds}s left`;
+
   return { expired: false, text };
 }
 
@@ -463,5 +458,4 @@ const Deals = () => {
 };
 
 export default Deals;
-
 
