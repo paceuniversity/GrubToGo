@@ -119,8 +119,8 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
       return (
         <div className="caterer-dashboard">
           <div className="deals-page">
-            <button onClick={handleBack} style={{ marginBottom: '1rem', padding: '0.5rem 1rem', cursor: 'pointer' }}>← Back to Stores</button>
-            <h1 className="deals-title">{selectedStore} - Create Offerings</h1>
+                <button onClick={handleBack} className="back-to-stores-btn">← Back to Stores</button>
+                <h1 className="deals-title">{selectedStore} - Create Offerings</h1>
             <div className="deals-grid">
               {items.map(item => {
                 const data = offeringData[item.id] || {};

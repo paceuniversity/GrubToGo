@@ -1,5 +1,6 @@
 
 import React, { useEffect, useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { assets } from '../assets/assets';
 import { useCart } from '../context/CartContext';
 import { getActiveOfferings } from '../services/firestoreService';
@@ -122,6 +123,7 @@ const PastaPalaceMenu = () => {
   
   return (
     <div className="deals-page">
+      <Link to="/menu" className="back-to-stores-btn">← Back to Stores</Link>
       <h1 className="deals-title">Pasta Palace Menu</h1>
       <div className="deals-grid">
         {pastaItems.map(item => (
