@@ -4,6 +4,7 @@ import { getActiveOrders, getPastOrders } from '../../services/firestoreService'
 import { stores } from '../../assets/stores';
 import './MyOrders.css';
 
+
 const MyOrders = () => {
   const [activeOrders, setActiveOrders] = useState([]);
   const [pastOrders, setPastOrders] = useState([]);
