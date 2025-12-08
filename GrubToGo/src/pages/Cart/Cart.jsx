@@ -13,6 +13,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
 
+  
   const handleCheckout = async () => {
     setErrorMessage('');
     setSuccessMessage('');
