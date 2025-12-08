@@ -137,6 +137,8 @@ const Deals = () => {
   const { addItem } = useCart();
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     // Initial fetch of active offerings and setup auto-refresh.
@@ -153,6 +155,7 @@ const Deals = () => {
   const loadOfferings = async () => {
     try {
       setLoading(true);
+      setErrorMessage('');
       console.log('Fetching active offerings...');
       const offerings = await getActiveOfferings();
       console.log('Received offerings:', offerings);
@@ -226,7 +229,7 @@ const Deals = () => {
     } catch (error) {
       // Error handling: log the issue and notify the user if offerings fail to load.
       console.error('Error loading offerings:', error);
-      alert('Failed to load deals: ' + error.message);
+      setErrorMessage('Failed to load deals. Please retry in a moment.');
     } finally {
       setLoading(false);
     }
@@ -265,7 +268,13 @@ const Deals = () => {
 
   if (loading) {
     return (
-      <div className="deals-page">
+      <div className="deals-page deals-list-page">
+        {errorMessage && (
+          <div className="alert-box" role="alert">
+            <strong>Error:</strong>
+            <span>{errorMessage}</span>
+          </div>
+        )}
         <div style={{ textAlign: 'center', padding: '3rem' }}>
           <div
             style={{
@@ -287,7 +296,19 @@ const Deals = () => {
   }
 
   return (
-    <div className="deals-page">
+    <div className="deals-page deals-list-page">
+      {successMessage && (
+        <div className="alert-box alert-box--success" role="status">
+          <strong>Success:</strong>
+          <span>{successMessage}</span>
+        </div>
+      )}
+      {errorMessage && (
+        <div className="alert-box" role="alert">
+          <strong>Error:</strong>
+          <span>{errorMessage}</span>
+        </div>
+      )}
       <h1 className="deals-title">Limited-Time Deals</h1>
 
       <div style={{ marginBottom: 16 }}>

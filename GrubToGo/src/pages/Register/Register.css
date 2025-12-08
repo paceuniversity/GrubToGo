@@ -1,16 +1,48 @@
 .register-page {
-  background: linear-gradient(135deg, #f8f9fa, #dee2e6);
+  position: relative;
+  background: linear-gradient(135deg, #ffffff, #f5f7fb);
+}
+
+.auth-logo {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+
+.auth-logo img {
+  width: 150px;
+  height: auto;
+  object-fit: contain;
 }
 
 .card {
   border-radius: 12px;
+  border: 1px solid #ffedd5;
+  box-shadow: 0 12px 30px rgba(249, 115, 22, 0.12);
 }
 
 .btn-primary {
-  background-color: #4f46e5;
+  background-color: #f97316;
   border: none;
 }
 
 .btn-primary:hover {
-  background-color: #4338ca;
+  background-color: #ea580c;
+}
+
+.btn-outline-primary {
+  color: #f97316;
+  border-color: #f97316;
+}
+
+.btn-outline-primary:hover,
+.btn-outline-primary:focus,
+.btn-outline-primary:active {
+  color: #fff;
+  background-color: #f97316;
+  border-color: #f97316;
 }

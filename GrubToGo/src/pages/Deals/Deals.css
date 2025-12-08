@@ -16,6 +16,19 @@
   padding: 1.5rem;
 }
 
+.deals-list-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.deals-list-page .deals-title {
+  margin: 0 0 0.5rem;
+}
+
 .deals-title {
   font-size: 2rem;
   margin-bottom: 1rem;
@@ -151,32 +164,32 @@
   margin-bottom: 1rem;
   padding: 12px 16px;
   border-radius: 999px;
-  border: none;
-  background: linear-gradient(125deg, #ff7a18, #ffb347);
-  color: #0b0b0b;
+  border: 1px solid #f97316;
+  background: #f97316;
+  color: #fff;
   font-weight: 700;
   font-size: 0.98rem;
   letter-spacing: 0.2px;
   cursor: pointer;
-  box-shadow: 0 14px 32px rgba(255, 122, 24, 0.25);
+  box-shadow: 0 12px 28px rgba(249, 115, 22, 0.18);
   transition: transform 140ms ease, box-shadow 140ms ease, filter 140ms ease;
   text-decoration: none;
 }
 
 .back-to-stores-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 18px 38px rgba(255, 122, 24, 0.28);
-  filter: brightness(1.02);
+  box-shadow: 0 16px 34px rgba(249, 115, 22, 0.22);
+  filter: brightness(1.03);
 }
 
 .back-to-stores-btn:active {
   transform: translateY(0);
-  box-shadow: 0 10px 22px rgba(255, 122, 24, 0.3);
-  filter: brightness(0.98);
+  box-shadow: 0 10px 22px rgba(249, 115, 22, 0.2);
+  filter: brightness(0.97);
 }
 
 .back-to-stores-btn:focus-visible {
-  outline: 3px solid rgba(255, 122, 24, 0.25);
+  outline: 3px solid rgba(249, 115, 22, 0.25);
   outline-offset: 3px;
 }
 
@@ -185,4 +198,48 @@
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Store menu layout (student + caterer) */
+.store-menu-page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 1.5rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.store-menu-page .deals-title {
+  margin: 0 0 0.5rem;
+}
+
+.store-menu-page .back-to-stores-btn {
+  align-self: flex-start;
+}
+
+/* Standard inline alert box */
+.alert-box {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #f5c2c7;
+  background: #fff1f2;
+  color: #b42318;
+  box-shadow: 0 6px 18px rgba(180, 35, 24, 0.08);
+  font-weight: 600;
+}
+
+.alert-box strong {
+  font-weight: 700;
+}
+
+.alert-box--success {
+  border-color: #bbf7d0;
+  background: #ecfdf3;
+  color: #166534;
+  box-shadow: 0 6px 18px rgba(22, 101, 52, 0.08);
 }

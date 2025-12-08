@@ -1,82 +1,91 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './OrderQueue.css';
+import '../Deals/Deals.css';
 
 const OrderQueue = ({ queuedOfferings, setQueuedOfferings }) => {
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const handleRemoveFromQueue = (itemId) => {
+    setErrorMessage('');
+    setSuccessMessage('');
     setQueuedOfferings(prev => prev.filter(item => item.itemId !== itemId));
   };
 
   const handleReleaseAll = async () => {
+    setErrorMessage('');
+    setSuccessMessage('');
     if (queuedOfferings.length === 0) return;
-    
-    if (window.confirm(`Release ${queuedOfferings.length} offering(s) to students?`)) {
-      try {
-        const { createOffering, getActiveOfferings } = await import('../../services/firestoreService');
-        const { auth } = await import('../../firebase');
-        
-        // Get all currently active offerings
-        const activeOfferings = await getActiveOfferings();
-        
-        // Check for duplicates and filter
-        const itemsToRelease = [];
-        const duplicates = [];
-        
-        for (const offering of queuedOfferings) {
-          const isDuplicate = activeOfferings.some(
-            active => active.itemName === offering.itemName && active.storeId === offering.storeId
-          );
-          
-          if (isDuplicate) {
-            duplicates.push(offering.itemName);
-          } else {
-            itemsToRelease.push(offering);
-          }
-        }
-        
-        // Show warning if duplicates found
-        if (duplicates.length > 0) {
-          const proceed = window.confirm(
-            `Warning: The following items are already active:\n${duplicates.join(', ')}\n\n` +
-            `These will be skipped. Continue with remaining ${itemsToRelease.length} item(s)?`
-          );
-          if (!proceed) return;
-        }
-        
-        if (itemsToRelease.length === 0) {
-          alert('All items in queue are already active. Nothing to release.');
-          return;
-        }
-        
-        // Create offerings for non-duplicate items
-        const promises = itemsToRelease.map(offering => 
-          createOffering({
-            catererId: auth.currentUser.uid,
-            storeId: offering.storeId,
-            itemName: offering.itemName,
-            discountPercent: offering.discountPercent,
-            durationHours: offering.durationHours,
-            durationMinutes: offering.durationMinutes,
-            expiresAt: offering.expiresAt
-          })
-        );
 
-        await Promise.all(promises);
+    try {
+      const { createOffering, getActiveOfferings } = await import('../../services/firestoreService');
+      const { auth } = await import('../../firebase');
+      
+      // Get all currently active offerings
+      const activeOfferings = await getActiveOfferings();
+      
+      // Check for duplicates and filter
+      const itemsToRelease = [];
+      const duplicates = [];
+      
+      for (const offering of queuedOfferings) {
+        const isDuplicate = activeOfferings.some(
+          active => active.itemName === offering.itemName && active.storeId === offering.storeId
+        );
         
-        const message = duplicates.length > 0
-          ? `${itemsToRelease.length} offering(s) released. ${duplicates.length} duplicate(s) skipped.`
-          : `${itemsToRelease.length} offering(s) released successfully!`;
-        
-        alert(message);
-        setQueuedOfferings([]);
-      } catch (error) {
-        console.error('Error releasing offerings:', error);
-        alert('Failed to release offerings. Please try again.');
+        if (isDuplicate) {
+          duplicates.push(offering.itemName);
+        } else {
+          itemsToRelease.push(offering);
+        }
       }
+
+      if (itemsToRelease.length === 0) {
+        setErrorMessage('All items in queue are already active. Nothing to release.');
+        return;
+      }
+
+      // Create offerings for non-duplicate items
+      const promises = itemsToRelease.map(offering => 
+        createOffering({
+          catererId: auth.currentUser.uid,
+          storeId: offering.storeId,
+          itemName: offering.itemName,
+          discountPercent: offering.discountPercent,
+          durationHours: offering.durationHours,
+          durationMinutes: offering.durationMinutes,
+          expiresAt: offering.expiresAt
+        })
+      );
+
+      await Promise.all(promises);
+      
+      const message = duplicates.length > 0
+        ? `${itemsToRelease.length} offering(s) released. ${duplicates.length} duplicate(s) skipped.`
+        : `${itemsToRelease.length} offering(s) released successfully!`;
+      
+      setErrorMessage('');
+      setSuccessMessage(message);
+      setQueuedOfferings([]);
+    } catch (error) {
+      console.error('Error releasing offerings:', error);
+      setErrorMessage('Failed to release offerings. Please try again.');
     }
   };
 
   return (
     <div className="order-queue-page">
+      {successMessage && (
+        <div className="alert-box alert-box--success" role="status">
+          <strong>Success:</strong>
+          <span>{successMessage}</span>
+        </div>
+      )}
+      {errorMessage && (
+        <div className="alert-box" role="alert">
+          <strong>Error:</strong>
+          <span>{errorMessage}</span>
+        </div>
+      )}
       <div className="order-queue-header">
         <h1>Order Queue ({queuedOfferings.length})</h1>
         <button 

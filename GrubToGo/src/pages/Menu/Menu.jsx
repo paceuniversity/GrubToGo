@@ -23,7 +23,7 @@ const Menu = () => {
               <div className="store-header">
                 <h3 className="store-name">{s.name}</h3>
               </div>
-              <p className="store-meta">{s.cuisine} • {s.priceRange} • {s.etaMins} min</p>
+              <p className="store-meta">{s.cuisine} • {s.etaMins} min</p>
               <p className="store-desc">{s.description}</p>
               <Link className="store-action" to={menuRoutes[s.name] || '#'}>View menu →</Link>
             </div>
