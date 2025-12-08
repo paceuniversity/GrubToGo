@@ -8,7 +8,7 @@ const MyOrders = () => {
   const [activeOrders, setActiveOrders] = useState([]);
   const [pastOrders, setPastOrders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState('active'); // 'active' or 'past'
+  const [activeTab, setActiveTab] = useState('active'); 
   const [totalSaved, setTotalSaved] = useState(0); // NEW FIELD
 
   useEffect(() => {
