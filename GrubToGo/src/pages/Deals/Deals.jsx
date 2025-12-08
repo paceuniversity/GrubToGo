@@ -108,6 +108,8 @@ const Deals = () => {
   const { addItem } = useCart();
   const [appliedFilters, setAppliedFilters] = useState([]);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     // Initial fetch of active offerings and setup auto-refresh.
@@ -124,6 +126,7 @@ const Deals = () => {
   const loadOfferings = async () => {
     try {
       setLoading(true);
+      setErrorMessage('');
       console.log('Fetching active offerings...');
       const offerings = await getActiveOfferings();
       console.log('Received offerings:', offerings);
@@ -185,7 +188,7 @@ const Deals = () => {
     } catch (error) {
       // Error handling: log the issue and notify the user if offerings fail to load.
       console.error('Error loading offerings:', error);
-      alert('Failed to load deals: ' + error.message);
+      setErrorMessage('Failed to load deals. Please retry in a moment.');
     } finally {
       setLoading(false);
     }
@@ -213,7 +216,13 @@ const Deals = () => {
 
   if (loading) {
     return (
-      <div className="deals-page">
+      <div className="deals-page deals-list-page">
+        {errorMessage && (
+          <div className="alert-box" role="alert">
+            <strong>Error:</strong>
+            <span>{errorMessage}</span>
+          </div>
+        )}
         <div style={{ textAlign: 'center', padding: '3rem' }}>
           <div style={{ display: 'inline-block', width: '50px', height: '50px', border: '4px solid #f3f3f3', borderTop: '4px solid #ff6b35', borderRadius: '50%', animation: 'spin 1s linear infinite' }}></div>
           <p style={{ marginTop: '1rem', color: '#666' }}>Loading deals...</p>
@@ -223,7 +232,19 @@ const Deals = () => {
   }
 
   return (
-    <div className="deals-page">
+    <div className="deals-page deals-list-page">
+      {successMessage && (
+        <div className="alert-box alert-box--success" role="status">
+          <strong>Success:</strong>
+          <span>{successMessage}</span>
+        </div>
+      )}
+      {errorMessage && (
+        <div className="alert-box" role="alert">
+          <strong>Error:</strong>
+          <span>{errorMessage}</span>
+        </div>
+      )}
       <h1 className="deals-title">Limited-Time Deals</h1>
       <div style={{ marginBottom: 16 }}>
         <label htmlFor="filter-deals" style={{ fontWeight: 500, marginRight: 8 }}>Filters:</label>
@@ -282,13 +303,17 @@ const Deals = () => {
             <DealCard 
               key={d.id} 
               deal={d}
-              onAddToCart={(deal) => addItem({
-                id: deal.id,
-                title: deal.name,
-                price: deal.price,
-                storeName: deal.store,
-                image: deal.img,
-              })}
+              onAddToCart={(deal) => {
+                setErrorMessage('');
+                addItem({
+                  id: deal.id,
+                  title: deal.name,
+                  price: deal.price,
+                  storeName: deal.store,
+                  image: deal.img,
+                });
+                setSuccessMessage(`Added to cart successfully: ${deal.name}`);
+              }}
             />
           ))
         )}

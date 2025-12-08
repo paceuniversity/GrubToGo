@@ -212,13 +212,8 @@ export const placeOrder = async (orderData) => {
       diningDollars: newBalance
     });
 
-    // 9. Mark offering as sold
-    transaction.update(offeringRef, {
-      status: 'sold',
-      orderId: orderRef.id,
-      purchasedBy: orderData.studentId,
-      purchasedAt: Timestamp.now()
-    });
+    // 9. Remove the offering so it no longer shows in deals/store menus
+    transaction.delete(offeringRef);
 
     return { orderId: orderRef.id, newBalance, ...order };
   });

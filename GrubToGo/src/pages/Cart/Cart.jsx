@@ -8,24 +8,28 @@ import { auth } from '../../firebase';
 const Cart = () => {
   const { items, removeItem, clear, totals } = useCart();
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const navigate = useNavigate();
 
 
   const handleCheckout = async () => {
+    setErrorMessage('');
+    setSuccessMessage('');
+
     if (!auth.currentUser) {
-      alert('Please log in to place an order');
-      navigate('/login');
+      setErrorMessage('Please log in to place an order.');
       return;
     }
 
     if (items.length === 0) {
-      alert('Your cart is empty');
+      setErrorMessage('Your cart is empty.');
       return;
     }
 
     // For now, we only support one item at a time (offerings are individual deals)
     if (items.length > 1) {
-      alert('Please checkout one item at a time');
+      setErrorMessage('Please checkout one item at a time.');
       return;
     }
 
@@ -48,67 +52,72 @@ const Cart = () => {
 
       console.log('Placing order with data:', orderData);
       const result = await placeOrder(orderData);
-      
-      alert(`Order placed successfully!\nOrder ID: ${result.orderId}\nNew Balance: $${result.newBalance.toFixed(2)}`);
+      setSuccessMessage(`Order placed successfully! ID: ${result.orderId}. New balance: $${result.newBalance.toFixed(2)}.`);
       
       // Clear cart after successful order
       clear();
-      
-      // Navigate to a success page or orders page
-      navigate('/student');
     } catch (error) {
       console.error('Order placement failed:', error);
-      alert(`Failed to place order: ${error.message}`);
+      setErrorMessage(`Failed to place order: ${error.message}`);
     } finally {
       setLoading(false);
     }
   };
   
-  if (!items.length) {
-    return (
-      <div className="cart-page">
-        <h1>My Cart</h1>
-        <p>Your cart is empty.</p>
-      </div>
-    );
-  }
-
   return (
     <div className="cart-page">
+      {successMessage && (
+        <div className="alert-box alert-box--success" role="status">
+          <strong>Success:</strong>
+          <span>{successMessage}</span>
+        </div>
+      )}
+      {errorMessage && (
+        <div className="alert-box" role="alert">
+          <strong>Error:</strong>
+          <span>{errorMessage}</span>
+        </div>
+      )}
       <h1>My Cart</h1>
-      <div className="cart-list">
-        {items.map((it) => (
-          <div key={it.id} className="cart-row">
-            <img src={it.image} alt={it.title} className="cart-thumb" />
-            <div className="cart-info">
-              <div className="cart-title">{it.title}</div>
-              <div className="cart-store">{it.storeName}</div>
+      {items.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        <>
+          <div className="cart-list">
+            {items.map((it) => (
+              <div key={it.id} className="cart-row">
+                <img src={it.image} alt={it.title} className="cart-thumb" />
+                <div className="cart-info">
+                  <div className="cart-title">{it.title}</div>
+                  <div className="cart-store">{it.storeName}</div>
+                </div>
+                <div className="cart-price">${it.price.toFixed(2)}</div>
+                <button 
+                  className="cart-remove-btn"
+                  onClick={() => removeItem(it.id)}
+                  title="Remove from cart"
+                >
+                  ✕
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div className="cart-summary">
+            <div className="cart-total">
+              <span>Total:</span>
+              <span className="cart-total-amount">${totals.amount.toFixed(2)}</span>
             </div>
-            <div className="cart-price">${it.price.toFixed(2)}</div>
             <button 
-              className="cart-remove-btn"
-              onClick={() => removeItem(it.id)}
-              title="Remove from cart"
+              className="checkout-btn"
+              onClick={handleCheckout}
+              disabled={loading}
             >
-              ✕
+              {loading ? 'Processing...' : 'Place Order'}
             </button>
           </div>
-        ))}
-      </div>
-
-      <div className="cart-summary">
-        <div className="cart-total">
-          <span>Total:</span>
-          <span className="cart-total-amount">${totals.amount.toFixed(2)}</span>
-        </div>
-        <button 
-          className="checkout-btn"
-          onClick={handleCheckout}
-          disabled={loading}
-        >
-          {loading ? 'Processing...' : 'Place Order'}
-        </button>
-      </div>
+        </>
+      )}
     </div>
   );
 };

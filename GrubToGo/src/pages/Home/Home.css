@@ -1,0 +1,12 @@
+/* Align Home with other pages */
+.home-page {
+	padding: 2rem;
+	display: flex;
+	justify-content: center;
+}
+
+.home-content {
+	width: 100%;
+	max-width: 1200px;
+	margin: 0 auto;
+}

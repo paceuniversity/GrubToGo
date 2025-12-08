@@ -9,6 +9,8 @@ const OrderDetails = () => {
   const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('offerings'); // 'offerings', 'orders'
   const [orderFilter, setOrderFilter] = useState('all'); // 'all', 'active', 'completed'
+  const [errorMessage, setErrorMessage] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
 
   useEffect(() => {
     loadData();
@@ -17,6 +19,7 @@ const OrderDetails = () => {
   const loadData = async () => {
     try {
       setLoading(true);
+      setErrorMessage('');
       const catererId = auth.currentUser.uid;
       
       // Load offerings created by this caterer
@@ -31,7 +34,7 @@ const OrderDetails = () => {
       setOrders(sortedOrders);
     } catch (error) {
       console.error('Error loading data:', error);
-      alert('Failed to load data');
+      setErrorMessage('Failed to load data. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -83,13 +86,15 @@ const OrderDetails = () => {
     if (!window.confirm('Mark this order as picked up?')) return;
     
     try {
+      setErrorMessage('');
+      setSuccessMessage('');
       await updateOrderStatus(orderId, 'picked_up');
       // Reload data to reflect changes
       await loadData();
-      alert('Order marked as picked up!');
+      setSuccessMessage('Order marked as picked up.');
     } catch (error) {
       console.error('Error updating order:', error);
-      alert('Failed to update order: ' + error.message);
+      setErrorMessage('Failed to update order: ' + error.message);
     }
   };
 
@@ -112,6 +117,18 @@ const OrderDetails = () => {
 
   return (
     <div className="order-details-page">
+      {successMessage && (
+        <div className="alert-box alert-box--success" role="status">
+          <strong>Success:</strong>
+          <span>{successMessage}</span>
+        </div>
+      )}
+      {errorMessage && (
+        <div className="alert-box" role="alert">
+          <strong>Error:</strong>
+          <span>{errorMessage}</span>
+        </div>
+      )}
       <div className="order-details-header">
         <h1>Order Management</h1>
       </div>

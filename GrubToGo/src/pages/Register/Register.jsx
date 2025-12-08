@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase';
 import { createUser } from '../../services/firestoreService';
+import logo from '../../assets/logo.png';
 import './Register.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -77,6 +78,10 @@ const Register = ({ setIsLoggedIn, setUserRole }) => {
 
   return (
     <div className="register-page d-flex align-items-center justify-content-center vh-100 bg-light">
+      <div className="auth-logo">
+        <img src={logo} alt="GrubToGo logo" />
+      </div>
+
       <div className="card shadow p-4" style={{ width: '22rem' }}>
         <h2 className="text-center mb-3">Create Account</h2>
 

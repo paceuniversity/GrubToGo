@@ -34,6 +34,7 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
   const location = useLocation();
   const [selectedStore, setSelectedStore] = useState(null);
   const [offeringData, setOfferingData] = useState({});
+  const [errorMessage, setErrorMessage] = useState('');
 
   const activeTab = location.pathname.includes('orders') ? 'orders' : 'home';
 
@@ -43,6 +44,7 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
   };
 
   const handleStoreClick = (storeName) => {
+    setErrorMessage('');
     setSelectedStore(storeName);
   };
 
@@ -63,7 +65,7 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
   const handleAddToQueue = (item, storeName) => {
     // Check if already in queue
     if (isItemQueued(item.id)) {
-      alert(`${item.name} is already in the queue!`);
+      setErrorMessage(`${item.name} is already in the queue.`);
       return;
     }
 
@@ -73,7 +75,7 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
     const minutes = parseInt(data.minutes) || 0;
 
     if (discountPercent <= 0 || discountPercent > 100 || (hours === 0 && minutes === 0)) {
-      alert('Please enter valid discount (1-100%) and timer values');
+      setErrorMessage('Enter a valid discount (1-100%) and duration.');
       return;
     }
 
@@ -103,7 +105,7 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
     // Add to queue
     setQueuedOfferings(prev => [...prev, offering]);
     
-    alert(`${item.name} added to Order Queue!`);
+    setErrorMessage('');
     
     // Clear the form for this item
     setOfferingData(prev => ({
@@ -119,6 +121,12 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
       return (
         <div className="caterer-dashboard">
           <div className="deals-page">
+                {errorMessage && (
+                  <div className="alert-box" role="alert">
+                    <strong>Error:</strong>
+                    <span>{errorMessage}</span>
+                  </div>
+                )}
                 <button onClick={handleBack} className="back-to-stores-btn">← Back to Stores</button>
                 <h1 className="deals-title">{selectedStore} - Create Offerings</h1>
             <div className="deals-grid">
@@ -210,7 +218,7 @@ const CatererDashboard = ({ queuedOfferings, setQueuedOfferings }) => {
                     <h3 className="store-name">{s.name}</h3>
                   </div>
                   <p className="store-meta">
-                    {s.cuisine} • {s.priceRange} • {s.etaMins} min
+                    {s.cuisine} • {s.etaMins} min
                   </p>
                   <p className="store-desc">{s.description}</p>
                   <div className="store-action">
