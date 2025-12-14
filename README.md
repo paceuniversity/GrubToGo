@@ -1,7 +1,7 @@
 # TEAM 3
 
 ## App name
-GrubToGo
+<h1 align="center">🍔 <b>GrubToGo</b> 🍔</h1>
 
 ## Team members
 - Chinmay Chandra
@@ -70,7 +70,7 @@ GrubToGo
 - **Database:** Firebase Firestore (real-time updates)
 - **Styling:** Modular CSS + Bootstrap components
 - **Build Tool:** Vite
-- **Linting:** ESLint
+
 ## Final delivery
 
 * [Final presentation]()
