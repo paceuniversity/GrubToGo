@@ -4,7 +4,10 @@
 GrubToGo
 
 ## Team members
-Chinmay Chandra, Pratik Shah, Karan Nahar, Sandeep Kumar
+- Chinmay Chandra
+- Pratik Shah 
+- Karan Nahar 
+- Sandeep Kumar
 
 ## Team Photo
 
@@ -61,11 +64,13 @@ Chinmay Chandra, Pratik Shah, Karan Nahar, Sandeep Kumar
 ## Tools & APIs
 
 - **Frontend:** React + Vite (with React Router for navigation)
+- **UI Library:** Bootstrap 5.3
 - **State Management:** React Context API + sessionStorage
 - **Authentication:** Firebase Authentication (email/password)
 - **Database:** Firebase Firestore (real-time updates)
-- **Styling:** Modular CSS with responsive design
-
+- **Styling:** Modular CSS + Bootstrap components
+- **Build Tool:** Vite
+- **Linting:** ESLint
 ## Final delivery
 
 * [Final presentation]()
