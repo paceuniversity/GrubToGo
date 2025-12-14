@@ -18,8 +18,7 @@ Chinmay Chandra, Pratik Shah, Karan Nahar, Sandeep Kumar
 </p>
 
 ## App Description
-Grab discounted campus meals fast , save food, save cash.  
-Dining staff list leftover meals with photos and pickup times. Students browse, pay, and pick up meals using a QR code.  
+**GrubToGo** is a campus food ordering platform that connects dining staff with students to reduce food waste and save money. Dining staff create limited-time discount offers for leftover meals. Students browse available deals, add them to cart, and pay with Dining Dollars. Staff members manage and fulfill orders in real-time.
 
 ## Idea Proposal
 [Idea Proposal](https://docs.google.com/document/d/14UROxg6pcEz7T67yf1DVfY9HnGax6gdY/edit?usp=sharing&ouid=102180535557086645261&rtpof=true&sd=true)
@@ -60,6 +59,12 @@ Dining staff list leftover meals with photos and pickup times. Students browse, 
 * [Sprint retrospective](https://docs.google.com/document/d/1RwYcPRDK9X4mts9LiU_f-rJah-eWTUpHNJyHc-YfQdw/edit?tab=t.0)
 
 ## Tools & APIs
+
+- **Frontend:** React + Vite (with React Router for navigation)
+- **State Management:** React Context API + sessionStorage
+- **Authentication:** Firebase Authentication (email/password)
+- **Database:** Firebase Firestore (real-time updates)
+- **Styling:** Modular CSS with responsive design
 
 ## Final delivery
 
