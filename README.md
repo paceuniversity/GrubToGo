@@ -58,7 +58,7 @@
 
 * [Sprint planning](https://docs.google.com/spreadsheets/d/1ippBgPRMhqo_UdZmyy8bxRogwDEbddCK/edit?gid=1132141706#gid=1132141706)
 * [Scrums](https://docs.google.com/document/d/1guMwQj1n531ZNoBgbZWKOHY4evfSU1i2QlL3NqVNF4k/edit?tab=t.0)
-* [Sprint demo video]()
+* [Sprint demo video](https://drive.google.com/file/d/1UGzc9lziXrntDxmsdq3TYqhJqI_kyyRI/view?usp=sharing)
 * [Sprint retrospective](https://docs.google.com/document/d/1RwYcPRDK9X4mts9LiU_f-rJah-eWTUpHNJyHc-YfQdw/edit?tab=t.0)
 
 ## Tools & APIs
