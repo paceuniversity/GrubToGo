@@ -74,7 +74,7 @@
 ## Final delivery
 
 * [Final presentation](https://docs.google.com/presentation/d/1C7ksdVcO2PCAf_qTZqYuYbBBznbfkvUciFFdqeAZsEc/edit?slide=id.gc6f980f91_0_0#slide=id.gc6f980f91_0_0)
-* [Poster]()
+* [Poster](https://docs.google.com/presentation/d/1lNHQCBL2gonsV8zZNKTsNCJKCaYAUoEH/edit?slide=id.p1#slide=id.p1)
 * [Process description](https://docs.google.com/presentation/d/1C7ksdVcO2PCAf_qTZqYuYbBBznbfkvUciFFdqeAZsEc/edit?slide=id.g3b045e51275_0_117#slide=id.g3b045e51275_0_117)
 
 
